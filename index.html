@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pherom - Authentic Attraction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: pan-y;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Gender Selection Screen */
+        .gender-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 16px;
+            color: #9ca3af;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            margin-bottom: 40px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .gender-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .gender-btn {
+            background: #1a1a1a;
+            border: 2px solid #2a2a2a;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gender-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gender-btn:hover {
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .gender-btn:hover::before {
+            opacity: 0.1;
+        }
+
+        .gender-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gender-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Tips Screen */
+        .tips-screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .tips-screen.active {
+            display: block;
+        }
+
+        .header {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #6366f1;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .tip-counter {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .cards-container {
+            position: relative;
+            height: calc(100vh - 100px);
+            padding: 0 24px;
+        }
+
+        .tip-card {
+            position: absolute;
+            width: calc(100% - 48px);
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 32px 24px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+            pointer-events: none;
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.1);
+        }
+
+        .tip-card.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .tip-card.prev {
+            opacity: 0.5;
+            transform: scale(0.95) translateX(-100%);
+            pointer-events: none;
+        }
+
+        .tip-card.next {
+            opacity: 0.5;
+            transform: scale(0.95) translateX(100%);
+            pointer-events: none;
+        }
+
+        .tip-illustration {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-illustration::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .tip-category {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .tip-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .tip-rationale {
+            color: #d1d5db;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        .tip-stat {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid #6366f1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #e5e7eb;
+        }
+
+        .tip-stat strong {
+            color: #a5b4fc;
+        }
+
+        .commit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: none;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .commit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .navigation-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 0 24px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2a2a2a;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #6366f1;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Actions Screen */
+        .actions-screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px 24px;
+        }
+
+        .actions-screen.active {
+            display: block;
+        }
+
+        .actions-header {
+            margin-bottom: 32px;
+        }
+
+        .actions-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            margin-top: 12px;
+        }
+
+        .actions-subtitle {
+            color: #9ca3af;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .action-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            border-color: #6366f1;
+            transform: translateX(4px);
+        }
+
+        .action-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .action-description {
+            color: #d1d5db;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .back-to-tips-btn {
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #6366f1;
+            color: #6366f1;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-tips-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Swipe hint */
+        .swipe-hint {
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+            margin-top: 12px;
+            padding: 0 24px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 428px) {
+            .tip-card {
+                padding: 24px 20px;
+            }
+            
+            .tip-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Gender Selection Screen -->
+        <div class="gender-screen" id="genderScreen">
+            <div class="logo">Pherom</div>
+            <div class="tagline">Authentic Attraction</div>
+            <h1>Let's personalize your journey</h1>
+            <p class="subtitle">Select your gender to receive tailored psychology-backed tips for authentic attraction</p>
+            <div class="gender-buttons">
+                <button class="gender-btn" onclick="selectGender('male')">
+                    <span class="gender-icon">♂️</span>
+                    <span>Male</span>
+                </button>
+                <button class="gender-btn" onclick="selectGender('female')">
+                    <span class="gender-icon">♀️</span>
+                    <span>Female</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tips Screen -->
+        <div class="tips-screen" id="tipsScreen">
+            <div class="header">
+                <button class="back-btn" onclick="backToGender()">← Back</button>
+                <div class="tip-counter" id="tipCounter">1 / 5</div>
+            </div>
+            <div class="cards-container" id="cardsContainer"></div>
+            <div class="navigation-dots" id="navigationDots"></div>
+            <div class="swipe-hint">Swipe left or right to explore more tips</div>
+        </div>
+
+        <!-- Actions Screen -->
+        <div class="actions-screen" id="actionsScreen">
+            <div class="actions-header">
+                <button class="back-btn" onclick="backToTips()">← Back to Tips</button>
+                <h2 class="actions-title" id="actionsTitle">Take Action</h2>
+                <p class="actions-subtitle">Start implementing these strategies today</p>
+            </div>
+            <div id="actionsContainer"></div>
+            <button class="back-to-tips-btn" onclick="backToTips()">Explore More Tips</button>
+        </div>
+    </div>
+
+    <script>
+        let currentGender = '';
+        let currentTipIndex = 0;
+        let selectedTips = [];
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const tipsDatabase = {
+            male: [
+                {
+                    category: "Body Language",
+                    title: "Master the Power Pose",
+                    icon: "💪",
+                    rationale: "Your body language speaks before you do. Research shows that adopting expansive postures increases testosterone by 20% and decreases cortisol by 25%, making you feel and appear more confident. Women unconsciously assess confidence through physical presence.",
+                    stat: "Studies show that men who maintain open, expansive body language are rated 76% more attractive in first impressions.",
+                    actions: [
+                        {
+                            title: "Practice the Stance",
+                            description: "Stand with feet shoulder-width apart, shoulders back, chin level. Hold this position for 2 minutes before social interactions to boost confidence hormones."
+                        },
+                        {
+                            title: "Eliminate Closed Gestures",
+                            description: "Stop crossing arms, hunching, or making yourself small. Keep your movements deliberate and take up appropriate space without invading others' boundaries."
+                        },
+                        {
+                            title: "Slow Down Your Movements",
+                            description: "Rushed movements signal nervousness. Practice moving 25% slower than usual - it conveys confidence and control, making you more magnetic."
+                        }
+                    ]
+                },
+                {
+                    category: "Communication",
+                    title: "The Art of Active Listening",
+                    icon: "👂",
+                    rationale: "Most people wait to speak rather than truly listening. Active listening creates genuine connection and makes others feel valued. This triggers oxytocin release in the brain, the bonding hormone that builds attraction and trust.",
+                    stat: "Research indicates that people who demonstrate active listening skills are perceived as 67% more trustworthy and attractive.",
+                    actions: [
+                        {
+                            title: "Use the Echo Technique",
+                            description: "Repeat the last 2-3 words of what she said as a question. This shows you're engaged and encourages her to open up more, creating deeper connection."
+                        },
+                        {
+                            title: "Ask Follow-Up Questions",
+                            description: "Instead of changing topics, dig deeper into what she's sharing. Ask 'How did that make you feel?' or 'What happened next?' to show genuine interest."
+                        },
+                        {
+                            title: "Put Away Your Phone",
+                            description: "Make it a rule: phone face-down and silent during conversations. Full presence is rare and incredibly attractive in today's distracted world."
+                        }
+                    ]
+                },
+                {
+                    category: "Style",
+                    title: "Dress for Your Best Self",
+                    icon: "👔",
+                    rationale: "First impressions form in 7 seconds, and 55% of that is based on appearance. Dressing well isn't about expensive clothes - it's about fit, grooming, and expressing your personality authentically. Good style signals self-respect and attention to detail.",
+                    stat: "Men who dress well are rated as 58% more competent and 42% more attractive, regardless of actual attractiveness.",
+                    actions: [
+                        {
+                            title: "Perfect the Fit",
+                            description: "Get your clothes tailored. Even affordable clothes look expensive when they fit properly. Focus on shoulders, length, and waist - these make the biggest difference."
+                        },
+                        {
+                            title: "Upgrade Your Grooming",
+                            description: "Invest in a good haircut every 3-4 weeks, maintain facial hair intentionally, and develop a skincare routine. Clean presentation multiplies everything else."
+                        },
+                        {
+                            title: "Find Your Signature",
+                            description: "Develop a consistent style that reflects your personality - whether it's a specific type of watch, cologne, or color palette. Consistency builds recognition and presence."
+                        }
+                    ]
+                },
+                {
+                    category: "Emotional Intelligence",
+                    title: "Develop Emotional Awareness",
+                    icon: "🧠",
+                    rationale: "Emotional intelligence - the ability to recognize, understand, and manage emotions - is one of the strongest predictors of relationship success. It allows you to connect on a deeper level and navigate social situations with grace and authenticity.",
+                    stat: "Studies show that emotional intelligence accounts for 58% of job performance and is rated as highly attractive by 89% of women.",
+                    actions: [
+                        {
+                            title: "Practice Emotion Labeling",
+                            description: "Throughout your day, pause and identify what you're feeling. Is it anxiety, excitement, frustration? Naming emotions reduces their intensity by 50% and increases self-awareness."
+                        },
+                        {
+                            title: "Read Between the Lines",
+                            description: "Pay attention to tone, body language, and what's not being said. When someone says 'I'm fine' but seems withdrawn, acknowledge it: 'You seem quiet today, everything okay?'"
+                        },
+                        {
+                            title: "Respond, Don't React",
+                            description: "When emotions run high, take 3 deep breaths before responding. This 10-second pause activates your prefrontal cortex, allowing thoughtful responses instead of emotional reactions."
+                        }
+                    ]
+                },
+                {
+                    category: "Confidence",
+                    title: "Build Genuine Confidence",
+                    icon: "🌟",
+                    rationale: "True confidence comes from self-acceptance and competence, not arrogance. It's the quiet certainty that you're enough, regardless of outcomes. This authentic confidence is magnetic because it's rooted in genuine self-worth rather than validation-seeking.",
+                    stat: "Confidence is rated as the #1 most attractive trait by 87% of women, surpassing physical appearance and wealth.",
+                    actions: [
+                        {
+                            title: "Set Micro-Goals Daily",
+                            description: "Commit to one small challenge daily - start a conversation with a stranger, try a new activity, speak up in a meeting. Each completion builds confidence neural pathways."
+                        },
+                        {
+                            title: "Practice Self-Compassion",
+                            description: "Talk to yourself like you would a close friend. Replace 'I'm terrible at this' with 'I'm learning and improving.' Self-compassion increases resilience and authentic confidence."
+                        },
+                        {
+                            title: "Document Your Wins",
+                            description: "Keep a 'confidence journal' where you write one thing you did well each day. Review it weekly to reinforce evidence of your capability and growth."
+                        }
+                    ]
+                },
+                {
+                    category: "Social Skills",
+                    title: "Master the Art of Storytelling",
+                    icon: "📖",
+                    rationale: "Stories activate multiple brain regions simultaneously, creating emotional resonance and memory formation. People won't remember what you said, but they'll remember how your stories made them feel. Great storytellers are perceived as charismatic and engaging.",
+                    stat: "Stories are 22 times more memorable than facts alone, and good storytellers are rated 73% more engaging in social situations.",
+                    actions: [
+                        {
+                            title: "Use the Three-Act Structure",
+                            description: "Setup (context), Conflict (challenge/tension), Resolution (outcome/lesson). Keep stories under 2 minutes. Practice with 3 go-to stories from your life."
+                        },
+                        {
+                            title: "Add Sensory Details",
+                            description: "Instead of 'I went to Paris,' say 'The smell of fresh croissants hit me as I walked past the corner bakery.' Sensory details make listeners feel present."
+                        },
+                        {
+                            title: "Include Vulnerability",
+                            description: "Share moments of failure, embarrassment, or uncertainty. Vulnerability creates connection - perfection creates distance. The struggle makes the story human."
+                        }
+                    ]
+                },
+                {
+                    category: "Presence",
+                    title: "Cultivate Magnetic Presence",
+                    icon: "⚡",
+                    rationale: "Presence is the quality of being fully engaged in the moment, making others feel like they're the only person in the room. It combines attention, energy, and authenticity. Charismatic people aren't always the loudest - they're the most present.",
+                    stat: "People with strong presence are remembered 92% of the time after first meetings, compared to 37% for those without presence.",
+                    actions: [
+                        {
+                            title: "Practice Mindful Grounding",
+                            description: "Before entering social situations, take 30 seconds to feel your feet on the ground and take 3 deep breaths. This centers you in the present moment."
+                        },
+                        {
+                            title: "Make Quality Eye Contact",
+                            description: "Hold eye contact for 3-5 seconds before looking away. Not staring, but genuine connection. Notice eye color when meeting someone new - this naturally creates good contact."
+                        },
+                        {
+                            title: "Match Energy Levels",
+                            description: "Read the room's energy and meet it before gradually elevating it. If someone's calm and reflective, match that first. This creates rapport before leading."
+                        }
+                    ]
+                },
+                {
+                    category: "Authenticity",
+                    title: "Embrace Authentic Vulnerability",
+                    icon: "❤️",
+                    rationale: "Vulnerability is not weakness - it's courage. Sharing your genuine thoughts, feelings, and experiences creates deep connection. Research by Dr. Brené Brown shows that vulnerability is the birthplace of love, belonging, and connection. Authenticity is irresistibly attractive.",
+                    stat: "83% of people report feeling more connected to someone who shares vulnerably, and vulnerability increases perceived trustworthiness by 71%.",
+                    actions: [
+                        {
+                            title: "Share Your Real Passions",
+                            description: "Talk about what genuinely excites you, even if it's unconventional. Enthusiasm is contagious. Say 'I'm really into vintage motorcycles' instead of giving safe, generic answers."
+                        },
+                        {
+                            title: "Admit When You Don't Know",
+                            description: "Replace pretending with honesty: 'I actually don't know much about that, but I'd love to learn.' This builds trust and shows intellectual humility."
+                        },
+                        {
+                            title: "Express Genuine Compliments",
+                            description: "Give specific, authentic compliments about character or effort: 'I really respect how you handled that situation' rather than generic physical compliments."
+                        }
+                    ]
+                },
+                {
+                    category: "Energy",
+                    title: "Optimize Your Energy",
+                    icon: "🔋",
+                    rationale: "Your energy is your most valuable currency in attraction. Low energy signals low vitality and health - evolutionary cues for poor mate selection. High, positive energy is contagious and makes people want to be around you. Energy management directly impacts charisma.",
+                    stat: "Research shows that high-energy individuals are rated 68% more attractive and are 3.2x more likely to receive positive responses in social situations.",
+                    actions: [
+                        {
+                            title: "Prioritize Quality Sleep",
+                            description: "Get 7-9 hours consistently. Sleep deprivation reduces attractiveness ratings by 25% and kills social energy. Set a consistent bedtime and stick to it."
+                        },
+                        {
+                            title: "Move Your Body Daily",
+                            description: "Exercise releases endorphins and increases baseline energy. Even 20 minutes of walking boosts mood for 12 hours. Find movement you enjoy and make it non-negotiable."
+                        },
+                        {
+                            title: "Manage Social Energy",
+                            description: "Know if you're an introvert or extrovert and plan accordingly. Introverts: schedule alone time after social events. Extroverts: don't isolate. Honor your energy needs."
+                        }
+                    ]
+                },
+                {
+                    category: "Humor",
+                    title: "Develop Playful Humor",
+                    icon: "😄",
+                    rationale: "Humor signals intelligence, creativity, and the ability to handle stress - all attractive qualities. Playful humor (not sarcasm or put-downs) creates positive emotions and bonding. Laughter triggers dopamine release, associating you with good feelings.",
+                    stat: "A good sense of humor is rated as a top 3 most attractive trait by 91% of women, and shared laughter increases relationship satisfaction by 67%.",
+                    actions: [
+                        {
+                            title: "Practice Observational Humor",
+                            description: "Point out amusing contradictions or ironies in everyday situations. Not forced jokes, but playful observations: 'It's funny how we pay extra for pre-ripped jeans.'"
+                        },
+                        {
+                            title: "Learn to Laugh at Yourself",
+                            description: "Share your own mishaps and embarrassing moments. Self-deprecating humor (not self-criticism) shows you don't take yourself too seriously and creates safety for others."
+                        },
+                        {
+                            title: "Build a Humor Reference Library",
+                            description: "Watch stand-up comedy, follow witty people, notice what makes you laugh. Study structure: setup, pause, punchline. Good humor is a learnable skill."
+                        }
+                    ]
+                },
+                {
+                    category: "Purpose",
+                    title: "Live With Clear Purpose",
+                    icon: "🎯",
+                    rationale: "Having direction and purpose in life is deeply attractive because it signals ambition, drive, and stability. People are drawn to those who are going somewhere. Purpose provides the foundation for confidence and makes you interesting and dynamic.",
+                    stat: "Men with clear life goals and purpose are rated 79% more attractive in long-term relationship potential and show 45% higher life satisfaction.",
+                    actions: [
+                        {
+                            title: "Define Your Core Values",
+                            description: "Write down your top 5 values (e.g., growth, family, adventure, creativity). Use these to guide decisions. Living aligned with values creates magnetic authenticity."
+                        },
+                        {
+                            title: "Set Meaningful Goals",
+                            description: "Create 3-month, 1-year, and 5-year goals in career, relationships, health, and personal growth. Review monthly. Purpose isn't found - it's built through intentional action."
+                        },
+                        {
+                            title: "Share Your Journey",
+                            description: "Talk about what you're working toward and why it matters to you. Passion and purpose are contagious. Let people see your drive and commitment."
+                        }
+                    ]
+                },
+                {
+                    category: "Social Proof",
+                    title: "Build Genuine Social Value",
+                    icon: "👥",
+                    rationale: "Social proof - being valued by others - is a powerful attraction trigger. It's not about popularity, but about having quality friendships and being respected in your community. We unconsciously assess romantic prospects through how others respond to them.",
+                    stat: "People in the company of friends are rated 47% more attractive, and positive social interactions increase perceived status by 63%.",
+                    actions: [
+                        {
+                            title: "Invest in Real Friendships",
+                            description: "Cultivate 3-5 deep friendships. Be the friend who remembers birthdays, checks in, and shows up. Quality relationships make you more attractive and happier."
+                        },
+                        {
+                            title: "Become a Connector",
+                            description: "Introduce people who should know each other. Host gatherings, even small ones. Being a social hub builds value and demonstrates leadership naturally."
+                        },
+                        {
+                            title: "Develop Expertise",
+                            description: "Become genuinely skilled at something - a sport, craft, or subject. Teaching others or being consulted builds authentic status and gives you interesting conversation material."
+                        }
+                    ]
+                },
+                {
+                    category: "Mindset",
+                    title: "Adopt an Abundance Mindset",
+                    icon: "🌊",
+                    rationale: "Scarcity mindset - fear of missing out, desperation, neediness - repels attraction. Abundance mindset - believing there are many opportunities and you're worthy of them - is magnetic. This shift happens when you focus on self-improvement rather than outcomes.",
+                    stat: "People operating from abundance rather than scarcity are rated 82% more confident and show 56% better outcomes in dating.",
+                    actions: [
+                        {
+                            title: "Reframe Rejection",
+                            description: "See rejection as redirection toward better matches, not personal failure. Keep a 'rejection journal' where you find the lesson or silver lining in each 'no.'"
+                        },
+                        {
+                            title: "Expand Your Social Circles",
+                            description: "Join 2-3 activities/groups aligned with your interests. More social exposure creates more opportunities and reduces over-fixation on any single person."
+                        },
+                        {
+                            title: "Practice Gratitude Daily",
+                            description: "Write 3 things you're grateful for each morning. Gratitude rewires your brain toward abundance and makes you more positive and attractive to be around."
+                        }
+                    ]
+                },
+                {
+                    category: "Mystery",
+                    title: "Balance Openness with Mystery",
+                    icon: "🎭",
+                    rationale: "While authenticity is key, maintaining some mystery keeps attraction alive. Don't reveal everything immediately - let interest build gradually. Mystery activates the brain's reward system, making people want to learn more about you. It's about pacing, not deception.",
+                    stat: "Relationships with gradual disclosure show 54% higher long-term satisfaction, and mystery increases initial intrigue by 71%.",
+                    actions: [
+                        {
+                            title: "Practice Strategic Disclosure",
+                            description: "Share progressively deeper information over time. First date: interests and stories. Later: values and vulnerabilities. Save your deepest thoughts for when trust is established."
+                        },
+                        {
+                            title: "Maintain Your Independence",
+                            description: "Keep your hobbies, friends, and goals. Don't become 100% available immediately. Having your own life makes you more interesting and prevents neediness."
+                        },
+                        {
+                            title: "Leave Conversations on High Notes",
+                            description: "End interactions when things are going well, not when the conversation dies. This leaves people wanting more and thinking about you afterward."
+                        }
+                    ]
+                },
+                {
+                    category: "Touch",
+                    title: "Master Appropriate Touch",
+                    icon: "🤝",
+                    rationale: "Appropriate physical touch releases oxytocin and builds connection, but it must be calibrated correctly. Touch too soon signals poor social awareness; never touching signals fear or disinterest. The key is reading comfort levels and escalating gradually with clear consent.",
+                    stat: "Appropriate casual touch increases rapport by 59% and speeds up relationship development by 43%, when done with clear respect for boundaries.",
+                    actions: [
+                        {
+                            title: "Start with Social Touch",
+                            description: "Begin with universally acceptable touch: handshakes, brief shoulder touches during laughter, or guiding touch on the back when moving through doors. Observe response."
+                        },
+                        {
+                            title: "Use the Echo Test",
+                            description: "If she touches your arm while talking, you can reciprocate similarly later. If she pulls back from any touch, respect that and don't try again that interaction."
+                        },
+                        {
+                            title: "Create Natural Opportunities",
+                            description: "Activities like dancing, teaching a skill, or looking at something together create natural, non-threatening opportunities for appropriate proximity and touch."
+                        }
+                    ]
+                }
+            ],
+            female: [
+                {
+                    category: "Confidence",
+                    title: "Own Your Presence",
+                    icon: "👑",
+                    rationale: "Confidence is the foundation of attraction. It's not about being perfect - it's about being comfortable with who you are. Research shows that self-assured women activate the brain's reward centers in potential partners, creating magnetic appeal.",
+                    stat: "Women who display genuine confidence are rated 84% more attractive, and confidence is the #1 trait men find appealing in long-term partners.",
+                    actions: [
+                        {
+                            title: "Practice Power Posing",
+                            description: "Stand tall with shoulders back for 2 minutes before social situations. This increases confidence hormones by 20% and makes you feel more self-assured."
+                        },
+                        {
+                            title: "Celebrate Your Wins",
+                            description: "Keep a daily journal of accomplishments, no matter how small. Reviewing your wins weekly builds authentic self-confidence from evidence of your capability."
+                        },
+                        {
+                            title: "Speak With Conviction",
+                            description: "Eliminate qualifiers like 'maybe,' 'I think,' or 'just' from important statements. Say 'I believe' instead of 'I feel like maybe.' Your words deserve weight."
+                        }
+                    ]
+                },
+                {
+                    category: "Authenticity",
+                    title: "Be Unapologetically Yourself",
+                    icon: "✨",
+                    rationale: "Authenticity is magnetic because it's rare. When you embrace your true personality, interests, and quirks, you attract people who appreciate the real you. Pretending to be someone else attracts the wrong people and exhausts you.",
+                    stat: "Authenticity increases relationship satisfaction by 73% and reduces anxiety in dating situations by 61%.",
+                    actions: [
+                        {
+                            title: "Share Your Real Interests",
+                            description: "Talk about what genuinely excites you, even if unconventional. Love gaming, astronomy, or collecting vintage books? Own it. Passion is attractive regardless of the subject."
+                        },
+                        {
+                            title: "Set Clear Boundaries",
+                            description: "Say no to things that don't align with your values. Boundaries show self-respect and attract people who respect you too. Practice: 'That doesn't work for me.'"
+                        },
+                        {
+                            title: "Express Your Opinions",
+                            description: "Don't always agree to be agreeable. Share your perspective thoughtfully, even if different. Having a viewpoint shows depth and confidence."
+                        }
+                    ]
+                },
+                {
+                    category: "Body Language",
+                    title: "Master Nonverbal Communication",
+                    icon: "💃",
+                    rationale: "Body language communicates more than words. Open, confident posture signals self-assurance and approachability. Studies show that nonverbal cues account for 55% of first impression impact, making body language a powerful attraction tool.",
+                    stat: "Women with confident body language are approached 78% more often and rated significantly more attractive in initial encounters.",
+                    actions: [
+                        {
+                            title: "Perfect Your Posture",
+                            description: "Imagine a string pulling you up from the crown of your head. Shoulders back, chin parallel to ground. Good posture instantly adds presence and attractiveness."
+                        },
+                        {
+                            title: "Use Expressive Gestures",
+                            description: "Let your hands move naturally when talking. Expressive gestures make you more engaging and memorable. Avoid keeping arms crossed or hands hidden."
+                        },
+                        {
+                            title: "Make Genuine Eye Contact",
+                            description: "Hold eye contact for 3-5 seconds, then look away naturally. It shows confidence without staring. Notice eye color when meeting someone - this creates perfect contact."
+                        }
+                    ]
+                },
+                {
+                    category: "Communication",
+                    title: "Develop Magnetic Conversation Skills",
+                    icon: "💬",
+                    rationale: "Great conversationalists make others feel interesting, not inferior. The ability to listen deeply, ask thoughtful questions, and share meaningfully creates powerful connection. People remember how you made them feel, not what you said.",
+                    stat: "Active listeners are rated 69% more attractive and create 3.5x deeper connections in initial conversations.",
+                    actions: [
+                        {
+                            title: "Ask Open-Ended Questions",
+                            description: "Instead of 'Did you have a good day?' ask 'What was the best part of your day?' Open questions invite storytelling and reveal personality."
+                        },
+                        {
+                            title: "Practice the 70/30 Rule",
+                            description: "Listen 70% of the time, talk 30%. People love talking about themselves. Your interest makes you interesting. Follow up on what they share."
+                        },
+                        {
+                            title: "Share Meaningful Stories",
+                            description: "Go beyond surface facts. Instead of job titles, share what drives you. Include vulnerability - the struggle makes the story relatable and memorable."
+                        }
+                    ]
+                },
+                {
+                    category: "Style",
+                    title: "Develop Your Signature Style",
+                    icon: "👗",
+                    rationale: "Style is self-expression, not conformity. Dressing in ways that make you feel confident and comfortable signals self-awareness and self-respect. Your style tells a story about who you are before you say a word.",
+                    stat: "Women who dress authentically to their personality are rated 63% more confident and memorable than those following trends blindly.",
+                    actions: [
+                        {
+                            title: "Find Your Color Palette",
+                            description: "Identify 4-5 colors that complement your skin tone and make you feel powerful. Build your wardrobe around these. Consistency creates recognition and presence."
+                        },
+                        {
+                            title: "Invest in Fit, Not Brands",
+                            description: "Well-fitted clothes look expensive regardless of price. Get key pieces tailored. Focus on how clothes make you feel, not what the tag says."
+                        },
+                        {
+                            title: "Create a Signature Element",
+                            description: "A specific style of jewelry, lipstick color, or accessory. Something that becomes 'your thing.' It builds recognition and shows intentionality."
+                        }
+                    ]
+                },
+                {
+                    category: "Emotional Intelligence",
+                    title: "Master Emotional Awareness",
+                    icon: "🧠",
+                    rationale: "Emotional intelligence - understanding and managing both your emotions and others' - is a superpower in relationships. It allows you to connect deeply, navigate conflicts gracefully, and create emotional safety that makes people feel understood.",
+                    stat: "High emotional intelligence predicts 58% of relationship success and is rated as highly attractive by 92% of men.",
+                    actions: [
+                        {
+                            title: "Name Your Emotions",
+                            description: "When feeling upset, identify specifically: frustrated, disappointed, anxious? Naming emotions reduces their intensity by 50% and increases self-control."
+                        },
+                        {
+                            title: "Practice Empathetic Listening",
+                            description: "When someone shares, reflect back what you hear: 'It sounds like you're feeling overwhelmed.' This validates their experience and builds deep connection."
+                        },
+                        {
+                            title: "Pause Before Responding",
+                            description: "In emotional moments, take 3 deep breaths before replying. This 10-second pause activates thoughtful response instead of reactive emotions."
+                        }
+                    ]
+                },
+                {
+                    category: "Energy",
+                    title: "Radiate Positive Energy",
+                    icon: "☀️",
+                    rationale: "Energy is contagious. High-vibration energy - positivity, enthusiasm, vitality - makes people want to be around you. Your energy affects how others feel in your presence, and people are drawn to those who make them feel good.",
+                    stat: "Positive energy increases attraction ratings by 72% and makes you 4.1x more likely to be remembered after first meetings.",
+                    actions: [
+                        {
+                            title: "Start Your Day Intentionally",
+                            description: "Create a morning routine: movement, gratitude, setting intentions. How you start your day determines your baseline energy for all interactions."
+                        },
+                        {
+                            title: "Practice Energy Management",
+                            description: "Know what drains you (negative people, too much news) and what fuels you (nature, music, exercise). Protect your energy like your most valuable resource."
+                        },
+                        {
+                            title: "Smile Genuinely and Often",
+                            description: "Real smiles (Duchenne smiles - eyes and mouth) trigger mirror neurons, making others feel happy around you. Practice finding genuine amusement in moments."
+                        }
+                    ]
+                },
+                {
+                    category: "Independence",
+                    title: "Maintain Your Independence",
+                    icon: "🦋",
+                    rationale: "Independence signals emotional maturity and self-sufficiency - highly attractive qualities. Having your own life, interests, and identity makes you interesting and prevents codependency. You become a whole person inviting someone into your life, not half a person seeking completion.",
+                    stat: "Women who maintain strong independence and personal identity show 81% higher relationship satisfaction and lower anxiety.",
+                    actions: [
+                        {
+                            title: "Nurture Your Friendships",
+                            description: "Keep investing in your friend relationships even when dating. Schedule regular friend time. Your support network is crucial for your wellbeing and attractiveness."
+                        },
+                        {
+                            title: "Pursue Your Own Goals",
+                            description: "Maintain your career ambitions, hobbies, and personal growth goals. Don't abandon your dreams for anyone. Having your own pursuits makes you dynamic."
+                        },
+                        {
+                            title: "Enjoy Solo Time",
+                            description: "Be comfortable alone. Take yourself to dinner, travel solo, enjoy your own company. Self-sufficiency is attractive and builds genuine confidence."
+                        }
+                    ]
+                },
+                {
+                    category: "Playfulness",
+                    title: "Embrace Playful Energy",
+                    icon: "🎪",
+                    rationale: "Playfulness signals joy, creativity, and the ability to not take everything too seriously - all attractive qualities. It creates positive associations and makes interactions fun and memorable. Laughter releases bonding hormones and reduces stress.",
+                    stat: "Playful behavior increases attraction by 66% and creates 2.8x more memorable interactions than serious-only conversations.",
+                    actions: [
+                        {
+                            title: "Practice Light Teasing",
+                            description: "Gentle, playful teasing (never about insecurities) creates fun tension. Tease about harmless things with a smile. Balance teasing with genuine compliments."
+                        },
+                        {
+                            title: "Don't Fear Silly",
+                            description: "Be willing to be goofy, make funny faces, or dance spontaneously. Taking yourself too seriously creates distance. Playfulness creates connection."
+                        },
+                        {
+                            title: "Find Shared Humor",
+                            description: "Notice what makes both of you laugh and reference it later. Inside jokes create bonding and exclusivity. Shared laughter is relationship glue."
+                        }
+                    ]
+                },
+                {
+                    category: "Mystery",
+                    title: "Balance Openness with Mystery",
+                    icon: "🌙",
+                    rationale: "While authenticity matters, maintaining some mystery keeps interest alive. Don't reveal everything immediately - let intrigue build gradually. Mystery activates the brain's reward system, making people want to discover more about you.",
+                    stat: "Gradual disclosure increases long-term attraction by 57% and creates 68% more anticipation in early dating stages.",
+                    actions: [
+                        {
+                            title: "Practice Strategic Sharing",
+                            description: "Share progressively deeper information over time. First interactions: interests and fun stories. Later: values and vulnerabilities. Let trust build naturally."
+                        },
+                        {
+                            title: "Don't Over-Text",
+                            description: "Maintain some space in communication. You don't need to respond instantly or share every moment. A little anticipation builds attraction."
+                        },
+                        {
+                            title: "Keep Your Life Full",
+                            description: "Don't drop everything when someone new appears. Maintain your schedule, interests, and friendships. Being busy (but making time) signals value."
+                        }
+                    ]
+                },
+                {
+                    category: "Vulnerability",
+                    title: "Embrace Authentic Vulnerability",
+                    icon: "❤️",
+                    rationale: "Vulnerability is courage, not weakness. Sharing genuine thoughts, feelings, and experiences creates deep connection. Dr. Brené Brown's research shows vulnerability is the birthplace of love and belonging. It gives others permission to be real too.",
+                    stat: "Appropriate vulnerability increases perceived trustworthiness by 74% and creates 3.2x deeper emotional connections.",
+                    actions: [
+                        {
+                            title: "Share Your Real Feelings",
+                            description: "When appropriate, express how you actually feel: 'I'm nervous about this presentation' or 'That really moved me.' Emotional honesty creates intimacy."
+                        },
+                        {
+                            title: "Admit Imperfections",
+                            description: "Share your struggles and growth areas. 'I'm working on being less controlling' shows self-awareness and humanity. Perfection creates distance."
+                        },
+                        {
+                            title: "Ask for What You Need",
+                            description: "Don't expect mind-reading. Clearly express your needs: 'I need some alone time to recharge' or 'Could we talk about this?' Asking shows emotional maturity."
+                        }
+                    ]
+                },
+                {
+                    category: "Presence",
+                    title: "Cultivate Mindful Presence",
+                    icon: "🎯",
+                    rationale: "Being fully present - not distracted, not performing, not in your head - makes others feel valued and seen. Presence combines attention, openness, and genuine engagement. It's rare in our distracted world, making it powerfully attractive.",
+                    stat: "People who demonstrate strong presence are remembered 89% of the time after meetings and rated 76% more engaging.",
+                    actions: [
+                        {
+                            title: "Practice Phone-Free Interactions",
+                            description: "During conversations, phone face-down and silent. Give people your full attention. This rare gift makes them feel truly important."
+                        },
+                        {
+                            title: "Ground Before Social Events",
+                            description: "Take 30 seconds before interactions to feel your feet on the ground and breathe deeply. This centers you in the present moment."
+                        },
+                        {
+                            title: "Listen to Understand, Not Respond",
+                            description: "Stop planning your response while someone's talking. Actually listen. Ask yourself 'What are they really saying?' This creates real connection."
+                        }
+                    ]
+                },
+                {
+                    category: "Boundaries",
+                    title: "Master Healthy Boundaries",
+                    icon: "🛡️",
+                    rationale: "Boundaries aren't walls - they're guidelines for how you want to be treated. Strong boundaries show self-respect and teach others how to treat you. They prevent resentment and create healthier, more balanced relationships.",
+                    stat: "Women with clear boundaries report 79% higher relationship satisfaction and 68% lower stress in relationships.",
+                    actions: [
+                        {
+                            title: "Identify Your Non-Negotiables",
+                            description: "Write down your absolute requirements in relationships (respect, honesty, emotional availability). Know these before dating. Don't compromise on core values."
+                        },
+                        {
+                            title: "Practice Saying No",
+                            description: "Start small: decline invitations you don't want. Use simple phrases: 'That doesn't work for me' or 'I'm not available then.' No extensive explanations needed."
+                        },
+                        {
+                            title: "Address Boundary Violations Early",
+                            description: "When someone crosses a boundary, address it immediately and directly: 'I'm not comfortable with that' or 'Please don't do that again.' Early correction prevents patterns."
+                        }
+                    ]
+                },
+                {
+                    category: "Self-Care",
+                    title: "Prioritize Self-Care",
+                    icon: "🌸",
+                    rationale: "Self-care isn't selfish - it's essential. Taking care of your physical, emotional, and mental health makes you more attractive, energized, and capable of healthy relationships. You can't pour from an empty cup.",
+                    stat: "Regular self-care practices increase energy by 64%, reduce stress by 71%, and significantly boost physical attractiveness ratings.",
+                    actions: [
+                        {
+                            title: "Create Non-Negotiable Rituals",
+                            description: "Establish 3 daily self-care practices: morning movement, skincare routine, 10 minutes of reading. Make them as essential as brushing teeth."
+                        },
+                        {
+                            title: "Honor Your Sleep",
+                            description: "Prioritize 7-9 hours of quality sleep. Poor sleep reduces attractiveness by 25% and tanks mood and energy. Your sleep is sacred."
+                        },
+                        {
+                            title: "Schedule Joy Regularly",
+                            description: "Put activities that bring you joy on your calendar: spa days, hobbies, nature time. Treat these appointments as seriously as work meetings."
+                        }
+                    ]
+                },
+                {
+                    category: "Passion",
+                    title: "Live With Passion and Purpose",
+                    icon: "🔥",
+                    rationale: "Having passions and purpose makes you magnetic. When you're excited about your life, work, or hobbies, that energy is contagious. People are attracted to those who are going somewhere and loving the journey.",
+                    stat: "Women with clear passions and life purpose are rated 77% more attractive and show 52% higher life satisfaction.",
+                    actions: [
+                        {
+                            title: "Identify Your Core Passions",
+                            description: "What makes you lose track of time? What would you do even if unpaid? Identify 2-3 true passions and actively pursue them weekly."
+                        },
+                        {
+                            title: "Set Inspiring Goals",
+                            description: "Create goals in different life areas: career, personal growth, relationships, health. Having direction makes you dynamic and interesting."
+                        },
+                        {
+                            title: "Share Your Enthusiasm",
+                            description: "Talk about what excites you without apologizing. Let people see your passion and drive. Enthusiasm is attractive and inspiring to others."
+                        }
+                    ]
+                }
+            ]
+        };
+
+        function selectGender(gender) {
+            currentGender = gender;
+            selectedTips = getRandomTips(tipsDatabase[gender], 5);
+            currentTipIndex = 0;
+            
+            document.getElementById('genderScreen').style.display = 'none';
+            document.getElementById('tipsScreen').classList.add('active');
+            
+            renderTips();
+            renderDots();
+            setupSwipeHandlers();
+        }
+
+        function getRandomTips(tipsArray, count) {
+            const shuffled = [...tipsArray].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, count);
+        }
+
+        function renderTips() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+            
+            selectedTips.forEach((tip, index) => {
+                const card = document.createElement('div');
+                card.className = 'tip-card';
+                if (index === currentTipIndex) {
+                    card.classList.add('active');
+                }
+                
+                card.innerHTML = `
+                    <div class="tip-illustration">${tip.icon}</div>
+                    <div class="tip-category">${tip.category}</div>
+                    <h2 class="tip-title">${tip.title}</h2>
+                    <p class="tip-rationale">${tip.rationale}</p>
+                    <div class="tip-stat">${tip.stat}</div>
+                    <button class="commit-btn" onclick="showActions(${index})">Take Action →</button>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            updateCounter();
+        }
+
+        function renderDots() {
+            const dotsContainer = document.getElementById('navigationDots');
+            dotsContainer.innerHTML = '';
+            
+            for (let i = 0; i < selectedTips.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === currentTipIndex) {
+                    dot.classList.add('active');
+                }
+                dot.onclick = () => goToTip(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function setupSwipeHandlers() {
+            const container = document.getElementById('cardsContainer');
+            
+            container.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            container.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && currentTipIndex < selectedTips.length - 1) {
+                    nextTip();
+                } else if (diff < 0 && currentTipIndex > 0) {
+                    prevTip();
+                }
+            }
+        }
+
+        function nextTip() {
+            if (currentTipIndex < selectedTips.length - 1) {
+                currentTipIndex++;
+                updateTipDisplay();
+            }
+        }
+
+        function prevTip() {
+            if (currentTipIndex > 0) {
+                currentTipIndex--;
+                updateTipDisplay();
+            }
+        }
+
+        function goToTip(index) {
+            currentTipIndex = index;
+            updateTipDisplay();
+        }
+
+        function updateTipDisplay() {
+            const cards = document.querySelectorAll('.tip-card');
+            cards.forEach((card, index) => {
+                card.className = 'tip-card';
+                if (index === currentTipIndex) {
+                    card.classList.add('active');
+                } else if (index < currentTipIndex) {
+                    card.classList.add('prev');
+                } else {
+                    card.classList.add('next');
+                }
+            });
+            
+            updateCounter();
+            renderDots();
+        }
+
+        function updateCounter() {
+            document.getElementById('tipCounter').textContent = `${currentTipIndex + 1} / ${selectedTips.length}`;
+        }
+
+        function showActions(tipIndex) {
+            const tip = selectedTips[tipIndex];
+            
+            document.getElementById('tipsScreen').classList.remove('active');
+            document.getElementById('actionsScreen').classList.add('active');
+            
+            document.getElementById('actionsTitle').textContent = tip.title;
+            
+            const actionsContainer = document.getElementById('actionsContainer');
+            actionsContainer.innerHTML = '';
+            
+            tip.actions.forEach((action, index) => {
+                const actionCard = document.createElement('div');
+                actionCard.className = 'action-card';
+                actionCard.innerHTML = `
+                    <div class="action-number">${index + 1}</div>
+                    <div class="action-title">${action.title}</div>
+                    <div class="action-description">${action.description}</div>
+                `;
+                actionsContainer.appendChild(actionCard);
+            });
+        }
+
+        function backToTips() {
+            document.getElementById('actionsScreen').classList.remove('active');
+            document.getElementById('tipsScreen').classList.add('active');
+        }
+
+        function backToGender() {
+            document.getElementById('tipsScreen').classList.remove('active');
+            document.getElementById('genderScreen').style.display = 'flex';
+            currentGender = '';
+            currentTipIndex = 0;
+            selectedTips = [];
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('tipsScreen').classList.contains('active')) {
+                if (e.key === 'ArrowRight') nextTip();
+                if (e.key === 'ArrowLeft') prevTip();
+            }
+        });
+    </script>
+</body>
+</html>

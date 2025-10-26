@@ -34,7 +34,7 @@
             justify-content: flex-start;
             align-items: center;
             min-height: 100vh;
-            padding: 80px 24px 40px;
+            padding: 40px 24px 40px;
             text-align: center;
         }
 
@@ -52,7 +52,7 @@
         .tagline {
             font-size: 16px;
             color: #ffffff;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
             font-weight: 500;
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             padding: 12px 24px;
@@ -80,7 +80,7 @@
 
         .gender-prompt {
             color: #8b5cf6;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             font-size: 24px;
             line-height: 1.3;
             font-weight: 700;
@@ -498,11 +498,13 @@
         }
 
         .carousel-container {
-            flex: 1;
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
+            flex-shrink: 0;
+            height: auto;
+            max-height: 65vh;
         }
 
         .carousel-track {
@@ -515,7 +517,7 @@
         .tip-card {
             min-width: 100%;
             height: 100%;
-            padding: 20px 24px 24px;
+            padding: 8px 24px 16px;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -527,16 +529,14 @@
         }
 
         .top-instruction {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: transparent;
             padding: 8px 16px;
-            margin: 8px 16px 0;
+            margin: 0 16px 8px;
             border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
-            animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
@@ -549,16 +549,35 @@
         }
 
         .top-instruction-text {
-            color: #ffffff;
+            color: #9ca3af;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: 0.5px;
         }
 
         .top-instruction-arrow {
-            font-size: 16px;
-            color: #ffffff;
+            font-size: 18px;
+            color: #6366f1;
             font-weight: bold;
+        }
+
+        .top-instruction-arrow:first-child {
+            opacity: 0.3;
+        }
+
+        .top-instruction-arrow.right {
+            animation: slideRight 1.5s ease-in-out infinite;
+        }
+
+        @keyframes slideRight {
+            0%, 100% {
+                transform: translateX(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(8px);
+                opacity: 1;
+            }
         }
 
         .swipe-arrow {
@@ -595,7 +614,7 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            padding: 12px;
+            padding: 8px;
             background: #0a0a0a;
         }
 
@@ -618,7 +637,7 @@
             height: 80px;
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             border-radius: 20px;
-            margin: 0 auto 12px;
+            margin: 0 auto 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -647,13 +666,13 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin: 0 auto 10px;
+            margin: 0 auto 6px;
         }
 
         .tip-title {
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             line-height: 1.3;
             color: #ffffff;
             text-align: center;
@@ -663,7 +682,7 @@
             font-size: 15px;
             font-style: italic;
             color: #a5b4fc;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             padding: 0 16px;
             line-height: 1.5;
             text-align: center;
@@ -672,7 +691,7 @@
         .tip-why {
             color: #d1d5db;
             line-height: 1.6;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-size: 15px;
         }
 
@@ -680,8 +699,8 @@
             font-size: 16px;
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 10px;
-            margin-top: 16px;
+            margin-bottom: 8px;
+            margin-top: 12px;
         }
 
         .tip-action {
@@ -722,7 +741,7 @@
 
         .choice-indicator {
             text-align: center;
-            padding: 12px 24px 16px;
+            padding: 8px 24px 12px;
             background: #0a0a0a;
             border-top: 1px solid #2a2a2a;
         }
@@ -829,7 +848,7 @@
             <div class="top-instruction">
                 <div class="top-instruction-arrow">←</div>
                 <div class="top-instruction-text">SWIPE TO EXPLORE</div>
-                <div class="top-instruction-arrow">→</div>
+                <div class="top-instruction-arrow right">→</div>
             </div>
             <div class="carousel-container">
                 <div class="carousel-track" id="carouselTrack">

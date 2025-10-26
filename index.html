@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pherom - Authentic Attraction</title>
+    <title>Pherom - Be Your Best Self. Attract Your Best Life.</title>
     <style>
         * {
             margin: 0;
@@ -39,21 +39,26 @@
         }
 
         .logo {
-            font-size: 48px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        
+        .logo img {
+            width: 250px;
+            height: auto;
+            mix-blend-mode: screen;
+            opacity: 1;
         }
 
         .tagline {
             font-size: 16px;
-            color: #9ca3af;
+            color: #ffffff;
             margin-bottom: 60px;
-            font-weight: 300;
+            font-weight: 500;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
         }
 
         h1 {
@@ -62,11 +67,37 @@
             font-weight: 600;
         }
 
+        .main-message {
+            color: #ffffff;
+            margin-bottom: 32px;
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 600;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gender-prompt {
+            color: #8b5cf6;
+            margin-bottom: 32px;
+            font-size: 24px;
+            line-height: 1.3;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+        }
+
         .subtitle {
-            color: #9ca3af;
+            color: #ffffff;
             margin-bottom: 40px;
-            font-size: 15px;
-            line-height: 1.6;
+            font-size: 20px;
+            line-height: 1.5;
+            font-weight: 600;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .gender-buttons {
@@ -119,18 +150,312 @@
         .gender-icon {
             font-size: 48px;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            filter: drop-shadow(0 10px 30px rgba(99, 102, 241, 0.3));
+            position: relative;
+            font-family: Arial, sans-serif;
+        }
+
+        .gender-icon::before {
+            content: attr(data-symbol);
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1;
+        }
+
+        /* Briefing Screen */
+        .briefing-screen {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 24px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .briefing-screen.active {
+            display: flex;
+        }
+
+        .briefing-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .briefing-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .briefing-subtitle {
+            color: #9ca3af;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 400px;
+        }
+
+        .briefing-steps {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .briefing-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .briefing-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: #d1d5db;
+            font-size: 15px;
+            line-height: 1.6;
+            padding-top: 4px;
+        }
+
+        .timer-container {
+            margin-top: 24px;
+        }
+
+        .timer-text {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .timer-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timer-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timer-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid #2a2a2a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: #6366f1;
+            border-right-color: #6366f1;
+            animation: countdown 8s linear forwards;
+        }
+
+        @keyframes countdown {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .skip-btn {
+            margin-top: 24px;
+            background: none;
+            border: 1px solid #6366f1;
+            color: #6366f1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skip-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Commitment Animation */
+        .commitment-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            pointer-events: none;
+            display: none;
+        }
+
+        .commitment-animation.active {
             display: block;
+        }
+
+        .absorb-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            animation: absorbPulse 1.5s ease-in-out;
+        }
+
+        @keyframes absorbPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            30% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 1;
+            }
+            60% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.1);
+                opacity: 0;
+            }
+        }
+
+        .energy-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            margin: -50px 0 0 -50px;
+            border-radius: 50%;
+            border: 3px solid #6366f1;
+            animation: energyExpand 1.5s ease-out;
+        }
+
+        .energy-wave:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .energy-wave:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes energyExpand {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(8);
+                opacity: 0;
+            }
+        }
+
+        .particles {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #6366f1;
+            border-radius: 50%;
+            animation: particleBurst 1.5s ease-out;
+        }
+
+        @keyframes particleBurst {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .flash-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            animation: flashFade 1.5s ease-out;
+        }
+
+        @keyframes flashFade {
+            0% {
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+            }
         }
 
         /* Tips Screen */
         .tips-screen {
             display: none;
             min-height: 100vh;
-            padding: 20px 0;
         }
 
         .tips-screen.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
@@ -138,6 +463,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: #0a0a0a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .back-btn {
@@ -149,59 +478,125 @@
             font-weight: 500;
         }
 
-        .tip-counter {
-            color: #9ca3af;
-            font-size: 14px;
+        .header-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
         }
 
-        .cards-container {
+        .refresh-btn {
+            background: none;
+            border: none;
+            color: #6366f1;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .refresh-btn:active {
+            transform: rotate(180deg);
+        }
+
+        .carousel-container {
+            flex: 1;
             position: relative;
-            height: calc(100vh - 100px);
-            padding: 0 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s ease;
+            width: 100%;
+            height: 100%;
         }
 
         .tip-card {
+            min-width: 100%;
+            height: 100%;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .swipe-indicators {
             position: absolute;
-            width: calc(100% - 48px);
-            background: #1a1a1a;
-            border-radius: 24px;
-            padding: 32px 24px;
+            bottom: 120px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .swipe-arrow {
+            font-size: 24px;
+            color: #6366f1;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .swipe-arrow.left {
+            animation: bounceLeft 2s ease-in-out infinite;
+        }
+
+        .swipe-arrow.right {
+            animation: bounceRight 2s ease-in-out infinite;
+        }
+
+        @keyframes bounceLeft {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(-10px); opacity: 1; }
+        }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(10px); opacity: 1; }
+        }
+
+        .swipe-text {
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .card-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px;
+            background: #0a0a0a;
+        }
+
+        .card-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2a2a2a;
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: scale(0.95) translateY(20px);
-            pointer-events: none;
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.1);
         }
 
-        .tip-card.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            pointer-events: auto;
-            z-index: 10;
-        }
-
-        .tip-card.prev {
-            opacity: 0.5;
-            transform: scale(0.95) translateX(-100%);
-            pointer-events: none;
-        }
-
-        .tip-card.next {
-            opacity: 0.5;
-            transform: scale(0.95) translateX(100%);
-            pointer-events: none;
+        .card-dot.active {
+            background: #6366f1;
+            width: 24px;
+            border-radius: 4px;
         }
 
         .tip-illustration {
-            width: 100%;
-            height: 200px;
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            border-radius: 16px;
-            margin-bottom: 24px;
+            border-radius: 20px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 80px;
+            font-size: 50px;
             position: relative;
             overflow: hidden;
         }
@@ -226,7 +621,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 16px;
+            margin: 0 auto 16px;
         }
 
         .tip-title {
@@ -234,138 +629,85 @@
             font-weight: 700;
             margin-bottom: 16px;
             line-height: 1.3;
+            color: #ffffff;
+            text-align: center;
         }
 
-        .tip-rationale {
-            color: #d1d5db;
-            line-height: 1.7;
+        .tip-quote {
+            font-size: 16px;
+            font-style: italic;
+            color: #a5b4fc;
             margin-bottom: 16px;
+            padding: 0 16px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .tip-why {
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 20px;
             font-size: 15px;
         }
 
-        .tip-stat {
-            background: rgba(99, 102, 241, 0.1);
-            border-left: 3px solid #6366f1;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            font-size: 14px;
-            color: #e5e7eb;
-        }
-
-        .tip-stat strong {
-            color: #a5b4fc;
-        }
-
-        .commit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            border: none;
-            color: #ffffff;
-            padding: 16px;
-            border-radius: 12px;
+        .tip-action-header {
             font-size: 16px;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .commit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-        }
-
-        .navigation-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-            padding: 0 24px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #2a2a2a;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: #6366f1;
-            width: 24px;
-            border-radius: 4px;
-        }
-
-        /* Actions Screen */
-        .actions-screen {
-            display: none;
-            min-height: 100vh;
-            padding: 20px 24px;
-        }
-
-        .actions-screen.active {
-            display: block;
-        }
-
-        .actions-header {
-            margin-bottom: 32px;
-        }
-
-        .actions-title {
-            font-size: 28px;
-            font-weight: 700;
+            color: #ffffff;
             margin-bottom: 12px;
-            margin-top: 12px;
+            margin-top: 20px;
         }
 
-        .actions-subtitle {
-            color: #9ca3af;
-            font-size: 15px;
+        .tip-action {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 16px;
+            border-radius: 12px;
+            color: #e5e7eb;
             line-height: 1.6;
+            font-size: 15px;
+            border-left: 3px solid #6366f1;
         }
 
-        .action-card {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 16px;
-            border: 1px solid #2a2a2a;
-            transition: all 0.3s ease;
-        }
-
-        .action-card:hover {
-            border-color: #6366f1;
-            transform: translateX(4px);
-        }
-
-        .action-number {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            border-radius: 8px;
+        .select-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(99, 102, 241, 0.1);
+            border: 3px solid #6366f1;
+            border-radius: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            margin-bottom: 12px;
-            font-size: 16px;
         }
 
-        .action-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
+        .tip-card.selected .select-overlay {
+            opacity: 1;
         }
 
-        .action-description {
-            color: #d1d5db;
-            line-height: 1.6;
+        .select-checkmark {
+            font-size: 80px;
+            color: #6366f1;
+        }
+
+        .choice-indicator {
+            text-align: center;
+            padding: 16px 24px;
+            background: #0a0a0a;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .choice-prompt {
+            color: #9ca3af;
             font-size: 14px;
+            margin-bottom: 12px;
         }
 
-        .back-to-tips-btn {
+        .select-tip-btn {
             width: 100%;
             background: #1a1a1a;
             border: 2px solid #6366f1;
@@ -375,22 +717,18 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 24px;
             transition: all 0.3s ease;
+            margin-bottom: 8px;
         }
 
-        .back-to-tips-btn:hover {
+        .select-tip-btn:hover {
             background: rgba(99, 102, 241, 0.1);
         }
 
-        /* Swipe hint */
-        .swipe-hint {
-            text-align: center;
-            color: #6b7280;
-            font-size: 13px;
-            margin-top: 12px;
-            padding: 0 24px;
-            opacity: 0.7;
+        .select-tip-btn.selected {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #ffffff;
+            border-color: transparent;
         }
 
         @media (max-width: 428px) {
@@ -408,49 +746,97 @@
     <div class="container">
         <!-- Gender Selection Screen -->
         <div class="gender-screen" id="genderScreen">
-            <div class="logo">Pherom</div>
-            <div class="tagline">Authentic Attraction</div>
-            <h1>Let's personalize your journey</h1>
-            <p class="subtitle">Select your gender to receive tailored psychology-backed tips for authentic attraction</p>
+            <div class="logo"><img src="data:image/png;base64,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" alt="Pherom Logo"></div>
+            <p class="main-message">Receive tailored psychology-backed tips to increase your authentic attraction</p>
+            <p class="gender-prompt">Select Your Gender</p>
             <div class="gender-buttons">
                 <button class="gender-btn" onclick="selectGender('male')">
-                    <span class="gender-icon">♂️</span>
+                    <span class="gender-icon" data-symbol="♂"></span>
                     <span>Male</span>
                 </button>
                 <button class="gender-btn" onclick="selectGender('female')">
-                    <span class="gender-icon">♀️</span>
+                    <span class="gender-icon" data-symbol="♀"></span>
                     <span>Female</span>
                 </button>
             </div>
+        </div>
+
+        <!-- Briefing Screen -->
+        <div class="briefing-screen" id="briefingScreen">
+            <h2 class="briefing-title">Choose Your Commitment</h2>
+            <p class="briefing-subtitle">
+                You'll see two tips. Pick one to focus on this week.
+            </p>
+            <div class="briefing-steps">
+                <div class="briefing-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Read both tips</div>
+                </div>
+                <div class="briefing-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Tap the one you want to commit to</div>
+                </div>
+                <div class="briefing-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Not feeling it? Hit refresh (↻) for new tips</div>
+                </div>
+            </div>
+            <div class="timer-container">
+                <div class="timer-text">Starting in...</div>
+                <div class="timer-circle">
+                    <div class="timer-ring">
+                        <div class="timer-progress" id="timerProgress"></div>
+                    </div>
+                    <div class="timer-number" id="timerNumber">8</div>
+                </div>
+            </div>
+            <button class="skip-btn" onclick="skipTimer()">Skip & Start Now →</button>
         </div>
 
         <!-- Tips Screen -->
         <div class="tips-screen" id="tipsScreen">
             <div class="header">
                 <button class="back-btn" onclick="backToGender()">← Back</button>
-                <div class="tip-counter" id="tipCounter">1 / 5</div>
+                <div class="header-title">Choose Your Commitment</div>
+                <button class="refresh-btn" onclick="refreshTips()">↻</button>
             </div>
-            <div class="cards-container" id="cardsContainer"></div>
-            <div class="navigation-dots" id="navigationDots"></div>
-            <div class="swipe-hint">Swipe left or right to explore more tips</div>
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Tip cards will be inserted here -->
+                </div>
+                <div class="swipe-indicators">
+                    <div class="swipe-arrow left">←</div>
+                    <div class="swipe-text">Swipe to explore</div>
+                    <div class="swipe-arrow right">→</div>
+                </div>
+            </div>
+            <div class="card-indicator" id="cardIndicator">
+                <div class="card-dot active"></div>
+                <div class="card-dot"></div>
+            </div>
+            <div class="choice-indicator">
+                <button class="select-tip-btn" id="selectBtn" onclick="selectCurrentTip()">Commit to This Tip</button>
+                <div class="choice-prompt">Swipe to see both tips, then commit to one</div>
+            </div>
         </div>
+    </div>
 
-        <!-- Actions Screen -->
-        <div class="actions-screen" id="actionsScreen">
-            <div class="actions-header">
-                <button class="back-btn" onclick="backToTips()">← Back to Tips</button>
-                <h2 class="actions-title" id="actionsTitle">Take Action</h2>
-                <p class="actions-subtitle">Start implementing these strategies today</p>
-            </div>
-            <div id="actionsContainer"></div>
-            <button class="back-to-tips-btn" onclick="backToTips()">Explore More Tips</button>
-        </div>
+    <!-- Commitment Animation -->
+    <div class="commitment-animation" id="commitmentAnimation">
+        <div class="flash-overlay"></div>
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+        <div class="absorb-effect">💪</div>
     </div>
 
     <script>
         let currentGender = '';
-        let currentTipIndex = 0;
         let selectedTips = [];
+        let selectedTipIndex = null;
+        let countdownInterval = null;
+        let timeLeft = 8;
+        let currentCardIndex = 0;
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -460,647 +846,692 @@
                     category: "Body Language",
                     title: "Master the Power Pose",
                     icon: "💪",
-                    rationale: "Your body language speaks before you do. Research shows that adopting expansive postures increases testosterone by 20% and decreases cortisol by 25%, making you feel and appear more confident. Women unconsciously assess confidence through physical presence.",
-                    stat: "Studies show that men who maintain open, expansive body language are rated 76% more attractive in first impressions.",
-                    actions: [
-                        {
-                            title: "Practice the Stance",
-                            description: "Stand with feet shoulder-width apart, shoulders back, chin level. Hold this position for 2 minutes before social interactions to boost confidence hormones."
-                        },
-                        {
-                            title: "Eliminate Closed Gestures",
-                            description: "Stop crossing arms, hunching, or making yourself small. Keep your movements deliberate and take up appropriate space without invading others' boundaries."
-                        },
-                        {
-                            title: "Slow Down Your Movements",
-                            description: "Rushed movements signal nervousness. Practice moving 25% slower than usual - it conveys confidence and control, making you more magnetic."
-                        }
-                    ]
+                    quote: "Your body doesn't just reflect your confidence—it creates it.",
+                    why: "Most men don't realize that simply changing your posture for 2 minutes before a social interaction can increase testosterone by 20% and decrease cortisol by 25%. This isn't just 'fake it till you make it'—it's biochemistry.",
+                    action: "Before your next date or social event, find a private space and stand with feet shoulder-width apart, hands on hips or raised in a 'V', chin up. Hold for 2 minutes. Your body will literally produce confidence hormones."
                 },
                 {
                     category: "Communication",
-                    title: "The Art of Active Listening",
+                    title: "The 3-Second Pause",
                     icon: "👂",
-                    rationale: "Most people wait to speak rather than truly listening. Active listening creates genuine connection and makes others feel valued. This triggers oxytocin release in the brain, the bonding hormone that builds attraction and trust.",
-                    stat: "Research indicates that people who demonstrate active listening skills are perceived as 67% more trustworthy and attractive.",
-                    actions: [
-                        {
-                            title: "Use the Echo Technique",
-                            description: "Repeat the last 2-3 words of what she said as a question. This shows you're engaged and encourages her to open up more, creating deeper connection."
-                        },
-                        {
-                            title: "Ask Follow-Up Questions",
-                            description: "Instead of changing topics, dig deeper into what she's sharing. Ask 'How did that make you feel?' or 'What happened next?' to show genuine interest."
-                        },
-                        {
-                            title: "Put Away Your Phone",
-                            description: "Make it a rule: phone face-down and silent during conversations. Full presence is rare and incredibly attractive in today's distracted world."
-                        }
-                    ]
+                    quote: "The most attractive thing you can give someone is the feeling of being truly heard.",
+                    why: "In a world of constant interruption, pausing 3 seconds before responding does something surprising—it makes people feel deeply valued and triggers oxytocin release in their brain. Most men respond instantly, making this rare move incredibly magnetic.",
+                    action: "When she finishes speaking, count '1-2-3' in your head before responding. This brief pause shows you're actually processing what she said, not just waiting to talk."
                 },
                 {
                     category: "Style",
-                    title: "Dress for Your Best Self",
+                    title: "The Fit Revolution",
                     icon: "👔",
-                    rationale: "First impressions form in 7 seconds, and 55% of that is based on appearance. Dressing well isn't about expensive clothes - it's about fit, grooming, and expressing your personality authentically. Good style signals self-respect and attention to detail.",
-                    stat: "Men who dress well are rated as 58% more competent and 42% more attractive, regardless of actual attractiveness.",
-                    actions: [
-                        {
-                            title: "Perfect the Fit",
-                            description: "Get your clothes tailored. Even affordable clothes look expensive when they fit properly. Focus on shoulders, length, and waist - these make the biggest difference."
-                        },
-                        {
-                            title: "Upgrade Your Grooming",
-                            description: "Invest in a good haircut every 3-4 weeks, maintain facial hair intentionally, and develop a skincare routine. Clean presentation multiplies everything else."
-                        },
-                        {
-                            title: "Find Your Signature",
-                            description: "Develop a consistent style that reflects your personality - whether it's a specific type of watch, cologne, or color palette. Consistency builds recognition and presence."
-                        }
-                    ]
+                    quote: "Expensive clothes look cheap when they don't fit. Cheap clothes look expensive when they do.",
+                    why: "Research shows that 76% of first impressions are visual, yet most men wear clothes that are 1-2 sizes too big. A $30 shirt that fits perfectly will always beat a $200 shirt that doesn't. Women notice fit before brand.",
+                    action: "Take your 3 favorite shirts to a local tailor this week. Ask them to adjust the shoulders and taper the sides. Cost: $15-30 per shirt. Impact: transformative."
                 },
                 {
                     category: "Emotional Intelligence",
-                    title: "Develop Emotional Awareness",
+                    title: "Name the Emotion",
                     icon: "🧠",
-                    rationale: "Emotional intelligence - the ability to recognize, understand, and manage emotions - is one of the strongest predictors of relationship success. It allows you to connect on a deeper level and navigate social situations with grace and authenticity.",
-                    stat: "Studies show that emotional intelligence accounts for 58% of job performance and is rated as highly attractive by 89% of women.",
-                    actions: [
-                        {
-                            title: "Practice Emotion Labeling",
-                            description: "Throughout your day, pause and identify what you're feeling. Is it anxiety, excitement, frustration? Naming emotions reduces their intensity by 50% and increases self-awareness."
-                        },
-                        {
-                            title: "Read Between the Lines",
-                            description: "Pay attention to tone, body language, and what's not being said. When someone says 'I'm fine' but seems withdrawn, acknowledge it: 'You seem quiet today, everything okay?'"
-                        },
-                        {
-                            title: "Respond, Don't React",
-                            description: "When emotions run high, take 3 deep breaths before responding. This 10-second pause activates your prefrontal cortex, allowing thoughtful responses instead of emotional reactions."
-                        }
-                    ]
+                    quote: "Emotional awareness isn't weakness—it's a superpower most men never develop.",
+                    why: "Studies show that simply labeling an emotion ('I'm feeling anxious about this presentation') reduces its intensity by 50% and activates your prefrontal cortex. Women find this emotional fluency incredibly attractive because it's so rare in men.",
+                    action: "Set 3 phone alarms today. When they go off, pause and identify what you're feeling in one word: anxious, excited, frustrated, content. That's it. This trains emotional awareness."
                 },
                 {
                     category: "Confidence",
-                    title: "Build Genuine Confidence",
+                    title: "The Competence Loop",
                     icon: "🌟",
-                    rationale: "True confidence comes from self-acceptance and competence, not arrogance. It's the quiet certainty that you're enough, regardless of outcomes. This authentic confidence is magnetic because it's rooted in genuine self-worth rather than validation-seeking.",
-                    stat: "Confidence is rated as the #1 most attractive trait by 87% of women, surpassing physical appearance and wealth.",
-                    actions: [
-                        {
-                            title: "Set Micro-Goals Daily",
-                            description: "Commit to one small challenge daily - start a conversation with a stranger, try a new activity, speak up in a meeting. Each completion builds confidence neural pathways."
-                        },
-                        {
-                            title: "Practice Self-Compassion",
-                            description: "Talk to yourself like you would a close friend. Replace 'I'm terrible at this' with 'I'm learning and improving.' Self-compassion increases resilience and authentic confidence."
-                        },
-                        {
-                            title: "Document Your Wins",
-                            description: "Keep a 'confidence journal' where you write one thing you did well each day. Review it weekly to reinforce evidence of your capability and growth."
-                        }
-                    ]
+                    quote: "Real confidence isn't believing you're perfect—it's having evidence you can handle imperfection.",
+                    why: "Neuroscience reveals that confidence comes from a track record of overcoming challenges, not positive thinking. Each time you do something slightly scary and survive, your brain literally rewires to expect success.",
+                    action: "Choose one small social fear (start conversation with stranger, speak up in meeting, approach someone attractive). Do it today. Don't wait to 'feel ready'—confidence follows action, not the reverse."
                 },
                 {
                     category: "Social Skills",
-                    title: "Master the Art of Storytelling",
+                    title: "The Vulnerability Paradox",
                     icon: "📖",
-                    rationale: "Stories activate multiple brain regions simultaneously, creating emotional resonance and memory formation. People won't remember what you said, but they'll remember how your stories made them feel. Great storytellers are perceived as charismatic and engaging.",
-                    stat: "Stories are 22 times more memorable than facts alone, and good storytellers are rated 73% more engaging in social situations.",
-                    actions: [
-                        {
-                            title: "Use the Three-Act Structure",
-                            description: "Setup (context), Conflict (challenge/tension), Resolution (outcome/lesson). Keep stories under 2 minutes. Practice with 3 go-to stories from your life."
-                        },
-                        {
-                            title: "Add Sensory Details",
-                            description: "Instead of 'I went to Paris,' say 'The smell of fresh croissants hit me as I walked past the corner bakery.' Sensory details make listeners feel present."
-                        },
-                        {
-                            title: "Include Vulnerability",
-                            description: "Share moments of failure, embarrassment, or uncertainty. Vulnerability creates connection - perfection creates distance. The struggle makes the story human."
-                        }
-                    ]
+                    quote: "Sharing your struggles makes you more attractive, not less.",
+                    why: "Counterintuitively, research shows that moderate self-disclosure about challenges (not trauma-dumping) increases perceived trustworthiness by 74%. Most men hide all weakness, making those who share appropriately stand out as authentic and brave.",
+                    action: "Next conversation, share one current challenge you're working through: 'I'm actually trying to get better at public speaking' or 'Working on being more patient.' Notice how it deepens the connection."
                 },
                 {
                     category: "Presence",
-                    title: "Cultivate Magnetic Presence",
+                    title: "The Phone-Down Rule",
                     icon: "⚡",
-                    rationale: "Presence is the quality of being fully engaged in the moment, making others feel like they're the only person in the room. It combines attention, energy, and authenticity. Charismatic people aren't always the loudest - they're the most present.",
-                    stat: "People with strong presence are remembered 92% of the time after first meetings, compared to 37% for those without presence.",
-                    actions: [
-                        {
-                            title: "Practice Mindful Grounding",
-                            description: "Before entering social situations, take 30 seconds to feel your feet on the ground and take 3 deep breaths. This centers you in the present moment."
-                        },
-                        {
-                            title: "Make Quality Eye Contact",
-                            description: "Hold eye contact for 3-5 seconds before looking away. Not staring, but genuine connection. Notice eye color when meeting someone new - this naturally creates good contact."
-                        },
-                        {
-                            title: "Match Energy Levels",
-                            description: "Read the room's energy and meet it before gradually elevating it. If someone's calm and reflective, match that first. This creates rapport before leading."
-                        }
-                    ]
+                    quote: "In a distracted world, full attention is an aphrodisiac.",
+                    why: "Studies show that merely having a phone visible on the table reduces conversation quality by 42%. Yet this simple act of putting your phone completely away is now so rare that it makes you instantly more memorable and attractive.",
+                    action: "Tonight, during any conversation lasting more than 5 minutes, put your phone on silent, screen-down, or in your pocket. Don't check it once. Watch how the interaction quality transforms."
                 },
                 {
                     category: "Authenticity",
-                    title: "Embrace Authentic Vulnerability",
+                    title: "Kill the Performance",
                     icon: "❤️",
-                    rationale: "Vulnerability is not weakness - it's courage. Sharing your genuine thoughts, feelings, and experiences creates deep connection. Research by Dr. Brené Brown shows that vulnerability is the birthplace of love, belonging, and connection. Authenticity is irresistibly attractive.",
-                    stat: "83% of people report feeling more connected to someone who shares vulnerably, and vulnerability increases perceived trustworthiness by 71%.",
-                    actions: [
-                        {
-                            title: "Share Your Real Passions",
-                            description: "Talk about what genuinely excites you, even if it's unconventional. Enthusiasm is contagious. Say 'I'm really into vintage motorcycles' instead of giving safe, generic answers."
-                        },
-                        {
-                            title: "Admit When You Don't Know",
-                            description: "Replace pretending with honesty: 'I actually don't know much about that, but I'd love to learn.' This builds trust and shows intellectual humility."
-                        },
-                        {
-                            title: "Express Genuine Compliments",
-                            description: "Give specific, authentic compliments about character or effort: 'I really respect how you handled that situation' rather than generic physical compliments."
-                        }
-                    ]
+                    quote: "Stop trying to be impressive. Start trying to be interested.",
+                    why: "Research reveals that people who ask questions and show genuine curiosity are rated 67% more attractive than those who try to impress. Your authentic interest is more magnetic than any achievement you could brag about.",
+                    action: "On your next date, make a game of it: ask 10 questions about her before sharing anything about yourself. Follow-up questions count double. You'll be shocked by the response."
                 },
                 {
                     category: "Energy",
-                    title: "Optimize Your Energy",
+                    title: "The Sleep Secret",
                     icon: "🔋",
-                    rationale: "Your energy is your most valuable currency in attraction. Low energy signals low vitality and health - evolutionary cues for poor mate selection. High, positive energy is contagious and makes people want to be around you. Energy management directly impacts charisma.",
-                    stat: "Research shows that high-energy individuals are rated 68% more attractive and are 3.2x more likely to receive positive responses in social situations.",
-                    actions: [
-                        {
-                            title: "Prioritize Quality Sleep",
-                            description: "Get 7-9 hours consistently. Sleep deprivation reduces attractiveness ratings by 25% and kills social energy. Set a consistent bedtime and stick to it."
-                        },
-                        {
-                            title: "Move Your Body Daily",
-                            description: "Exercise releases endorphins and increases baseline energy. Even 20 minutes of walking boosts mood for 12 hours. Find movement you enjoy and make it non-negotiable."
-                        },
-                        {
-                            title: "Manage Social Energy",
-                            description: "Know if you're an introvert or extrovert and plan accordingly. Introverts: schedule alone time after social events. Extroverts: don't isolate. Honor your energy needs."
-                        }
-                    ]
+                    quote: "You can't charm anyone when your brain is running on fumes.",
+                    why: "Sleep deprivation reduces attractiveness ratings by 25% and tanks charisma, wit, and emotional control. Yet most men sacrifice sleep to work more, not realizing they're sabotaging the very presence that creates opportunities.",
+                    action: "For the next 7 days, commit to 7.5 hours of sleep minimum. Set a bedtime alarm. Track how your energy, mood, and social interactions change. This isn't optional—it's foundational."
                 },
                 {
                     category: "Humor",
-                    title: "Develop Playful Humor",
+                    title: "Playful > Funny",
                     icon: "😄",
-                    rationale: "Humor signals intelligence, creativity, and the ability to handle stress - all attractive qualities. Playful humor (not sarcasm or put-downs) creates positive emotions and bonding. Laughter triggers dopamine release, associating you with good feelings.",
-                    stat: "A good sense of humor is rated as a top 3 most attractive trait by 91% of women, and shared laughter increases relationship satisfaction by 67%.",
-                    actions: [
-                        {
-                            title: "Practice Observational Humor",
-                            description: "Point out amusing contradictions or ironies in everyday situations. Not forced jokes, but playful observations: 'It's funny how we pay extra for pre-ripped jeans.'"
-                        },
-                        {
-                            title: "Learn to Laugh at Yourself",
-                            description: "Share your own mishaps and embarrassing moments. Self-deprecating humor (not self-criticism) shows you don't take yourself too seriously and creates safety for others."
-                        },
-                        {
-                            title: "Build a Humor Reference Library",
-                            description: "Watch stand-up comedy, follow witty people, notice what makes you laugh. Study structure: setup, pause, punchline. Good humor is a learnable skill."
-                        }
-                    ]
+                    quote: "You don't need to be a comedian. You need to be playful.",
+                    why: "Research shows playful energy (teasing, wordplay, spontaneous silliness) is rated more attractive than rehearsed jokes. Playfulness signals comfort, creativity, and low anxiety—all deeply attractive traits.",
+                    action: "Today, try one playful interaction: give someone a ridiculous nickname, make an absurd comparison, or respond to a serious question with temporary silly exaggeration before answering. Test the energy shift."
                 },
                 {
                     category: "Purpose",
-                    title: "Live With Clear Purpose",
+                    title: "Mission Over Romance",
                     icon: "🎯",
-                    rationale: "Having direction and purpose in life is deeply attractive because it signals ambition, drive, and stability. People are drawn to those who are going somewhere. Purpose provides the foundation for confidence and makes you interesting and dynamic.",
-                    stat: "Men with clear life goals and purpose are rated 79% more attractive in long-term relationship potential and show 45% higher life satisfaction.",
-                    actions: [
-                        {
-                            title: "Define Your Core Values",
-                            description: "Write down your top 5 values (e.g., growth, family, adventure, creativity). Use these to guide decisions. Living aligned with values creates magnetic authenticity."
-                        },
-                        {
-                            title: "Set Meaningful Goals",
-                            description: "Create 3-month, 1-year, and 5-year goals in career, relationships, health, and personal growth. Review monthly. Purpose isn't found - it's built through intentional action."
-                        },
-                        {
-                            title: "Share Your Journey",
-                            description: "Talk about what you're working toward and why it matters to you. Passion and purpose are contagious. Let people see your drive and commitment."
-                        }
-                    ]
+                    quote: "Women are attracted to men who are going somewhere, not men who are waiting for a woman to give them direction.",
+                    why: "Studies show men with clear goals and purpose are rated 79% more attractive. This isn't about success—it's about having a direction that exists independent of romantic validation. Mission creates magnetic pull.",
+                    action: "Write down your #1 goal for the next 90 days in one sentence. Career, fitness, skill, doesn't matter. Put it somewhere you'll see daily. Let it guide your choices. Purpose is attractive."
                 },
                 {
                     category: "Social Proof",
-                    title: "Build Genuine Social Value",
+                    title: "The Friend Factor",
                     icon: "👥",
-                    rationale: "Social proof - being valued by others - is a powerful attraction trigger. It's not about popularity, but about having quality friendships and being respected in your community. We unconsciously assess romantic prospects through how others respond to them.",
-                    stat: "People in the company of friends are rated 47% more attractive, and positive social interactions increase perceived status by 63%.",
-                    actions: [
-                        {
-                            title: "Invest in Real Friendships",
-                            description: "Cultivate 3-5 deep friendships. Be the friend who remembers birthdays, checks in, and shows up. Quality relationships make you more attractive and happier."
-                        },
-                        {
-                            title: "Become a Connector",
-                            description: "Introduce people who should know each other. Host gatherings, even small ones. Being a social hub builds value and demonstrates leadership naturally."
-                        },
-                        {
-                            title: "Develop Expertise",
-                            description: "Become genuinely skilled at something - a sport, craft, or subject. Teaching others or being consulted builds authentic status and gives you interesting conversation material."
-                        }
-                    ]
+                    quote: "How your friends treat you teaches others how to treat you.",
+                    why: "Research reveals that men in the company of friends are rated 47% more attractive. We unconsciously assess romantic prospects through social proof—if others value you, you must be valuable. Quality friendships are dating currency.",
+                    action: "This week, initiate plans with a friend you've been meaning to see. Grab coffee, play basketball, whatever. Invest in your friendships as seriously as you invest in dating. It compounds."
                 },
                 {
                     category: "Mindset",
-                    title: "Adopt an Abundance Mindset",
+                    title: "Abundance Thinking",
                     icon: "🌊",
-                    rationale: "Scarcity mindset - fear of missing out, desperation, neediness - repels attraction. Abundance mindset - believing there are many opportunities and you're worthy of them - is magnetic. This shift happens when you focus on self-improvement rather than outcomes.",
-                    stat: "People operating from abundance rather than scarcity are rated 82% more confident and show 56% better outcomes in dating.",
-                    actions: [
-                        {
-                            title: "Reframe Rejection",
-                            description: "See rejection as redirection toward better matches, not personal failure. Keep a 'rejection journal' where you find the lesson or silver lining in each 'no.'"
-                        },
-                        {
-                            title: "Expand Your Social Circles",
-                            description: "Join 2-3 activities/groups aligned with your interests. More social exposure creates more opportunities and reduces over-fixation on any single person."
-                        },
-                        {
-                            title: "Practice Gratitude Daily",
-                            description: "Write 3 things you're grateful for each morning. Gratitude rewires your brain toward abundance and makes you more positive and attractive to be around."
-                        }
-                    ]
+                    quote: "Desperation repels. Abundance attracts.",
+                    why: "Neuroscience shows that scarcity mindset activates the amygdala (fear center), making you clingy and anxious. Abundance mindset activates the prefrontal cortex, making you confident and selective. Women can sense this difference instantly.",
+                    action: "Before your next interaction with someone you're attracted to, remind yourself: 'There are 4 billion women on this planet. This is just one conversation.' Watch your neediness dissolve."
                 },
                 {
                     category: "Mystery",
-                    title: "Balance Openness with Mystery",
+                    title: "Less is More",
                     icon: "🎭",
-                    rationale: "While authenticity is key, maintaining some mystery keeps attraction alive. Don't reveal everything immediately - let interest build gradually. Mystery activates the brain's reward system, making people want to learn more about you. It's about pacing, not deception.",
-                    stat: "Relationships with gradual disclosure show 54% higher long-term satisfaction, and mystery increases initial intrigue by 71%.",
-                    actions: [
-                        {
-                            title: "Practice Strategic Disclosure",
-                            description: "Share progressively deeper information over time. First date: interests and stories. Later: values and vulnerabilities. Save your deepest thoughts for when trust is established."
-                        },
-                        {
-                            title: "Maintain Your Independence",
-                            description: "Keep your hobbies, friends, and goals. Don't become 100% available immediately. Having your own life makes you more interesting and prevents neediness."
-                        },
-                        {
-                            title: "Leave Conversations on High Notes",
-                            description: "End interactions when things are going well, not when the conversation dies. This leaves people wanting more and thinking about you afterward."
-                        }
-                    ]
+                    quote: "Don't empty your entire story in the first conversation.",
+                    why: "The brain's reward system is activated by curiosity gaps. Sharing everything immediately satisfies curiosity too soon, killing intrigue. Strategic pacing (not deception) keeps attraction building over time.",
+                    action: "In your next conversation, share 70% of a story, then say 'I'll tell you the rest another time.' Leave people wanting more. Anticipation is part of attraction."
                 },
                 {
                     category: "Touch",
-                    title: "Master Appropriate Touch",
+                    title: "The Touch Escalation Ladder",
                     icon: "🤝",
-                    rationale: "Appropriate physical touch releases oxytocin and builds connection, but it must be calibrated correctly. Touch too soon signals poor social awareness; never touching signals fear or disinterest. The key is reading comfort levels and escalating gradually with clear consent.",
-                    stat: "Appropriate casual touch increases rapport by 59% and speeds up relationship development by 43%, when done with clear respect for boundaries.",
-                    actions: [
-                        {
-                            title: "Start with Social Touch",
-                            description: "Begin with universally acceptable touch: handshakes, brief shoulder touches during laughter, or guiding touch on the back when moving through doors. Observe response."
-                        },
-                        {
-                            title: "Use the Echo Test",
-                            description: "If she touches your arm while talking, you can reciprocate similarly later. If she pulls back from any touch, respect that and don't try again that interaction."
-                        },
-                        {
-                            title: "Create Natural Opportunities",
-                            description: "Activities like dancing, teaching a skill, or looking at something together create natural, non-threatening opportunities for appropriate proximity and touch."
-                        }
-                    ]
+                    quote: "Appropriate touch builds attraction. No touch builds the friend zone.",
+                    why: "Oxytocin (bonding hormone) is released through physical touch, but 80% of men either touch too aggressively or not at all. The key is calibrated escalation: start casual (arm touch during laugh), read response, proceed or pause.",
+                    action: "Next time you're together, try one brief touch: hand on shoulder during laughter, or 'Let me show you' while guiding her somewhere. Watch her response. Reciprocation = green light."
+                },
+                {
+                    category: "Voice",
+                    title: "Speak From Your Chest",
+                    icon: "🎤",
+                    quote: "Your voice pitch directly affects how dominant and attractive you're perceived.",
+                    why: "Studies show men with deeper voices are rated as more attractive, trustworthy, and leadership-capable. Most men speak from their throat when nervous, raising pitch. Speaking from your chest (diaphragm) naturally lowers your voice and projects calm confidence.",
+                    action: "Practice this: Place your hand on your chest. Say 'Hello' and feel the vibration. That's chest voice. Use it for the first sentence of every conversation today. It anchors your nervous system and signals confidence."
+                },
+                {
+                    category: "Grooming",
+                    title: "The Scent Signature",
+                    icon: "🌿",
+                    quote: "Smell is the sense most tied to memory and attraction.",
+                    why: "Olfactory memory is stronger than visual memory. A signature scent (cologne, aftershave) creates powerful associations. Studies show pleasant scent can increase attractiveness ratings by 40%, yet 60% of men either wear too much or none at all.",
+                    action: "Find one quality cologne or natural scent you love. Apply 2 sprays max: one on neck, one on wrist. Wear it consistently. She'll associate that scent with you—and think of you when she smells it elsewhere."
+                },
+                {
+                    category: "Listening",
+                    title: "The Echo Technique",
+                    icon: "🔊",
+                    quote: "People don't care how much you know until they know how much you care.",
+                    why: "Repeating the last 2-3 words someone said as a question is an FBI interrogation technique that also works in dating. It shows active listening and encourages them to elaborate, creating deeper connection. Most people never actually listen—they wait to talk.",
+                    action: "In your next conversation, when she finishes a thought, repeat her last few words as a question. Her: 'It was such a long week.' You: 'Long week?' Then stay silent. She'll elaborate and feel heard."
+                },
+                {
+                    category: "Posture",
+                    title: "Walk With Purpose",
+                    icon: "🚶",
+                    quote: "How you move through space reveals how you move through life.",
+                    why: "People form judgments about your confidence within 3 seconds of seeing you walk. Yet most men shuffle, hunch, or rush. Walking with deliberate purpose—head up, shoulders back, unhurried pace—signals status and self-assurance before you say a word.",
+                    action: "For one week, slow your walking pace by 25%. Stand tall, take up space, move deliberately. Imagine you're being filmed in slow motion. Notice how differently people respond to you."
+                },
+                {
+                    category: "Texting",
+                    title: "End Texts First",
+                    icon: "📱",
+                    quote: "The person who cares less has the power.",
+                    why: "Always ending text conversations creates subtle pursuit dynamics. If you're always the last to text, you appear more invested. Occasionally ending conversations first (even when they're going well) creates healthy tension and makes her think about you more.",
+                    action: "Next text conversation that's going well, end it first with: 'Got to run, but let's continue this later' or 'Talk soon!' Don't always be available. Scarcity increases value."
+                },
+                {
+                    category: "Eye Contact",
+                    title: "The Triangle Technique",
+                    icon: "👁️",
+                    quote: "Eyes are the windows to connection—use them wisely.",
+                    why: "Most men either avoid eye contact (signals anxiety) or stare too intensely (signals aggression). The triangle technique—shifting your gaze between her left eye, right eye, and mouth—feels natural and creates intimacy without intensity.",
+                    action: "During your next conversation, trace a slow triangle: left eye (2 seconds), right eye (2 seconds), lips (1 second), repeat. This creates comfortable, engaging eye contact that builds attraction."
+                },
+                {
+                    category: "Smile",
+                    title: "The Delayed Smile",
+                    icon: "😊",
+                    quote: "A smile that spreads slowly appears more genuine than an instant grin.",
+                    why: "Instant smiles can appear nervous or placating. A smile that takes 1-2 seconds to spread fully is perceived as more authentic, warm, and confident. It signals you're genuinely pleased to see someone, not just being polite.",
+                    action: "When you see someone you're interested in, make eye contact first, pause for 1 second, then let your smile spread gradually. This creates a moment of connection that feels special and intentional."
+                },
+                {
+                    category: "Questions",
+                    title: "Ask 'Why' Not 'What'",
+                    icon: "❓",
+                    quote: "Surface questions get surface answers. Deep questions get real connection.",
+                    why: "'What do you do?' gets a job title. 'Why did you choose that field?' gets a story, values, and personality. Most conversations stay at the 'what' level. Moving to 'why' and 'how' creates the emotional depth that builds attraction.",
+                    action: "Replace all 'what' questions with 'why' or 'how' questions today. 'Why did you move here?' 'How did you get into that?' 'What drew you to that?' Notice how much richer the conversations become."
+                },
+                {
+                    category: "Compliments",
+                    title: "Notice Effort, Not Appearance",
+                    icon: "💬",
+                    quote: "Generic compliments fade. Specific observations linger.",
+                    why: "'You're beautiful' is something she's heard 1000 times. 'I love how animated you get when you talk about your work' is something she's never heard. Complimenting choices, effort, and character shows you're actually paying attention.",
+                    action: "Next compliment, avoid physical appearance. Instead notice: 'I really respect how you handled that' or 'Your passion for [topic] is contagious' or 'I love your taste in [music/books/whatever].' Be specific."
+                },
+                {
+                    category: "Rejection",
+                    title: "Reframe Every No",
+                    icon: "🔄",
+                    quote: "Rejection is redirection to someone better suited for you.",
+                    why: "Men who fear rejection never approach. Men who reframe rejection as data collection approach freely. Each 'no' eliminates a mismatch and brings you closer to a 'yes.' The most successful men have the most rejections—they just don't let it stop them.",
+                    action: "Set a goal: Get rejected once this week. Seriously. Ask someone out, start a conversation, take a social risk. When you get rejected, celebrate—you just expanded your comfort zone and moved closer to success."
+                },
+                {
+                    category: "Stories",
+                    title: "Show, Don't Tell",
+                    icon: "📚",
+                    quote: "Don't say you're adventurous. Tell the story of getting lost in Thailand.",
+                    why: "Saying 'I'm confident' doesn't make you sound confident. Telling a story where you handled a challenging situation confidently shows it. Stories bypass logical skepticism and create emotional truth. They're 22x more memorable than facts.",
+                    action: "Replace self-descriptions with micro-stories. Instead of 'I'm ambitious,' say 'Last year I taught myself coding and built an app in 3 months.' Show who you are through what you've done."
+                },
+                {
+                    category: "Challenge",
+                    title: "Disagree Sometimes",
+                    icon: "🤺",
+                    quote: "Agreeing with everything makes you forgettable. Thoughtful disagreement makes you interesting.",
+                    why: "Men who agree with everything appear either dishonest or lacking opinions. Playful disagreement (not argumentative, but having your own perspective) creates intellectual attraction and shows confidence. It demonstrates you're not trying to please—you're being real.",
+                    action: "Next time you genuinely disagree with something she says, express it playfully: 'Interesting take, but I actually think...' or 'I have to respectfully disagree because...' Own your perspective with a smile."
+                },
+                {
+                    category: "Leadership",
+                    title: "Make the Plan",
+                    icon: "🗺️",
+                    quote: "Decisiveness is deeply attractive. Indecisiveness is deeply frustrating.",
+                    why: "Asking 'What do you want to do?' puts decision burden on her. Suggesting a specific plan ('I know a great rooftop bar, or if you prefer, there's a cozy wine place nearby—which sounds better?') shows leadership while offering choice. Women are attracted to decisive men.",
+                    action: "For your next date, have a specific plan ready: time, place, backup option. Present it confidently: 'I'm thinking we could...' Don't make her do the mental labor of deciding. Lead."
+                },
+                {
+                    category: "Respect",
+                    title: "How You Treat Others Matters",
+                    icon: "🤝",
+                    quote: "She's watching how you treat the waiter, not just how you treat her.",
+                    why: "Women assess your character by how you treat people who can't do anything for you—waiters, strangers, service workers. Being charming to her but rude to others is a massive red flag that reveals your true character.",
+                    action: "Make it a rule: Be kind, patient, and respectful to everyone—especially service workers. Say please and thank you. Tip well. She's evaluating if you're genuinely good or just performing for her."
+                },
+                {
+                    category: "Conversation",
+                    title: "Share the Spotlight",
+                    icon: "🎭",
+                    quote: "The best conversationalists make others feel interesting, not impressed.",
+                    why: "Conversations should be roughly 50/50. If you're talking 80% of the time, you're lecturing. If she's talking 80%, you're interviewing. The sweet spot is balanced exchange where both people feel heard and interesting.",
+                    action: "Monitor your talk ratio today. After you share something, ask a related question. 'That reminds me of... [your story]. Have you ever experienced something like that?' Share, then pass the mic."
+                },
+                {
+                    category: "Initiative",
+                    title: "Follow Through Matters",
+                    icon: "✅",
+                    quote: "Your word is your worth. Say what you'll do, then do it.",
+                    why: "Most people are unreliable. 'Let's hang out sometime' never happens. Being someone who actually follows through—who texts when they say they will, shows up on time, does what they promise—instantly puts you in the top 10%. Reliability is attractive.",
+                    action: "This week, if you say you'll do something (call, text, meet up), do it. No excuses. Set reminders if needed. Your consistency builds trust faster than any words could."
+                },
+                {
+                    category: "Fitness",
+                    title: "Lift Heavy Things",
+                    icon: "🏋️",
+                    quote: "Physical strength builds mental confidence and visible results.",
+                    why: "Strength training increases testosterone, improves posture, builds discipline, and creates visible physical changes that boost confidence. You don't need to be huge—just being in better shape than you were 3 months ago radiates self-improvement energy.",
+                    action: "Start a simple strength routine: 3x per week, 30 minutes. Push-ups, squats, pull-ups (or gym equivalent). Track your progress. In 90 days, you'll look and feel noticeably different. That confidence shows."
+                },
+                {
+                    category: "Humor",
+                    title: "Laugh at Yourself First",
+                    icon: "🤣",
+                    quote: "Self-deprecating humor shows confidence. Taking yourself too seriously shows insecurity.",
+                    why: "Being able to laugh at your own mistakes or embarrassing moments signals secure confidence. It says 'I'm comfortable with my imperfections.' This creates psychological safety for her to be imperfect too, deepening connection.",
+                    action: "Next time you do something slightly embarrassing, acknowledge it with humor: 'Well, that was smooth' or 'And that's how you make a first impression.' Own it, laugh about it, move on."
+                },
+                {
+                    category: "Reading",
+                    title: "Read More Books",
+                    icon: "📖",
+                    quote: "Readers are leaders. And more interesting conversationalists.",
+                    why: "Reading expands vocabulary, exposes you to new ideas, gives you stories to share, and signals intellectual curiosity—all attractive traits. People who read are 67% more likely to have interesting conversations because they have more reference points.",
+                    action: "Start reading 20 pages per day. Fiction, non-fiction, doesn't matter. Pick a book that interests you. In one month you'll finish a book. In a year, 12 books. Your mind and conversation will evolve."
+                },
+                {
+                    category: "Standards",
+                    title: "Have Deal-Breakers",
+                    icon: "⚖️",
+                    quote: "If you'll accept anything, you're attractive to no one.",
+                    why: "Men without standards appear desperate. Having clear deal-breakers (disrespect, dishonesty, lack of ambition—whatever matters to you) shows self-respect and selectivity. Paradoxically, being selective makes you more attractive because it signals value.",
+                    action: "Write down 3 non-negotiables in relationships. These are your standards. Don't compromise on them, no matter how attractive she is. Self-respect is more attractive than any individual person."
+                },
+                {
+                    category: "Patience",
+                    title: "Don't Rush Intimacy",
+                    icon: "⏳",
+                    quote: "The best things develop slowly. Rushed foundations crumble.",
+                    why: "Trying to accelerate intimacy (physical or emotional) too quickly often backfires. It signals neediness or creates pressure. Letting attraction build gradually—through conversation, shared experiences, and time—creates stronger, more sustainable connection.",
+                    action: "On early dates, focus entirely on enjoying the conversation and getting to know her. Don't push for physical escalation or deep emotional sharing. Let it unfold naturally. Trust the process."
+                },
+                {
+                    category: "Curiosity",
+                    title: "Stay Genuinely Curious",
+                    icon: "🔍",
+                    quote: "Interested is more attractive than interesting.",
+                    why: "People love talking about themselves. Genuine curiosity—actually wanting to understand her perspective, experiences, and thoughts—creates powerful connection. Most people are so focused on being impressive that simply being interested makes you unforgettable.",
+                    action: "Approach every conversation with genuine curiosity. Ask yourself: 'What can I learn from this person?' Then ask questions to find out. Listen to understand, not to respond."
+                },
+                {
+                    category: "Adventure",
+                    title: "Suggest Novel Experiences",
+                    icon: "🎢",
+                    quote: "Novel experiences create stronger bonds than familiar ones.",
+                    why: "Trying new things together releases dopamine and creates shared memories. Novel experiences (hiking a new trail, trying a cuisine you've never had, visiting a museum) are more memorable and bonding than familiar ones (another dinner, another bar).",
+                    action: "For your next date, suggest something neither of you has done: a cooking class, rock climbing, a neighborhood you've never explored. Shared novelty creates shared excitement and memories."
+                },
+                {
+                    category: "Gratitude",
+                    title: "Express Appreciation",
+                    icon: "🙏",
+                    quote: "What you appreciate, appreciates.",
+                    why: "Expressing genuine gratitude—for her time, her perspective, specific things she does—makes people feel valued. Studies show gratitude increases relationship satisfaction by 65%. Yet most people rarely express it beyond a generic 'thanks.'",
+                    action: "After your next interaction, send a specific appreciation message: 'I really enjoyed hearing your perspective on [topic]' or 'Thanks for suggesting that place, it was great.' Be specific about what you appreciated."
+                },
+                {
+                    category: "Consistency",
+                    title: "Show Up Consistently",
+                    icon: "📅",
+                    quote: "Grand gestures are memorable. Consistent small gestures build love.",
+                    why: "One amazing date followed by a week of silence creates confusion. Consistent, steady interest—texting regularly, making plans, showing up—builds trust and security. Consistency signals genuine interest, not just fleeting attraction.",
+                    action: "Text her every 2-3 days with something specific (not 'hey'). Share something that reminded you of her conversation. Make plans for the next meetup before the current one ends. Be steady and reliable."
                 }
             ],
             female: [
                 {
                     category: "Confidence",
-                    title: "Own Your Presence",
+                    title: "Own Your Space",
                     icon: "👑",
-                    rationale: "Confidence is the foundation of attraction. It's not about being perfect - it's about being comfortable with who you are. Research shows that self-assured women activate the brain's reward centers in potential partners, creating magnetic appeal.",
-                    stat: "Women who display genuine confidence are rated 84% more attractive, and confidence is the #1 trait men find appealing in long-term partners.",
-                    actions: [
-                        {
-                            title: "Practice Power Posing",
-                            description: "Stand tall with shoulders back for 2 minutes before social situations. This increases confidence hormones by 20% and makes you feel more self-assured."
-                        },
-                        {
-                            title: "Celebrate Your Wins",
-                            description: "Keep a daily journal of accomplishments, no matter how small. Reviewing your wins weekly builds authentic self-confidence from evidence of your capability."
-                        },
-                        {
-                            title: "Speak With Conviction",
-                            description: "Eliminate qualifiers like 'maybe,' 'I think,' or 'just' from important statements. Say 'I believe' instead of 'I feel like maybe.' Your words deserve weight."
-                        }
-                    ]
+                    quote: "Confidence isn't 'I'm prettier than her.' It's 'I don't need to compare myself to her.'",
+                    why: "Most women don't realize that confidence triggers the same brain reward centers in men as physical beauty—but lasts far longer. Research shows self-assured women are rated 84% more attractive, yet society trains women to shrink and second-guess.",
+                    action: "For one week, eliminate all apologetic language. Replace 'Sorry, but...' with stating your needs directly. 'I'd prefer...' or 'I think we should...' Watch how people's responses shift."
                 },
                 {
                     category: "Authenticity",
-                    title: "Be Unapologetically Yourself",
+                    title: "Drop the Performance",
                     icon: "✨",
-                    rationale: "Authenticity is magnetic because it's rare. When you embrace your true personality, interests, and quirks, you attract people who appreciate the real you. Pretending to be someone else attracts the wrong people and exhausts you.",
-                    stat: "Authenticity increases relationship satisfaction by 73% and reduces anxiety in dating situations by 61%.",
-                    actions: [
-                        {
-                            title: "Share Your Real Interests",
-                            description: "Talk about what genuinely excites you, even if unconventional. Love gaming, astronomy, or collecting vintage books? Own it. Passion is attractive regardless of the subject."
-                        },
-                        {
-                            title: "Set Clear Boundaries",
-                            description: "Say no to things that don't align with your values. Boundaries show self-respect and attract people who respect you too. Practice: 'That doesn't work for me.'"
-                        },
-                        {
-                            title: "Express Your Opinions",
-                            description: "Don't always agree to be agreeable. Share your perspective thoughtfully, even if different. Having a viewpoint shows depth and confidence."
-                        }
-                    ]
+                    quote: "The right person will love you for who you are. The wrong person will love who you pretend to be.",
+                    why: "Pretending to like his hobbies, dumbing yourself down, or hiding your quirks attracts someone who doesn't actually like you. Authenticity immediately filters for compatibility and reduces dating anxiety by 61%.",
+                    action: "Next date, share one 'weird' interest you usually hide (your podcast obsession, love of true crime, whatever). If he's intrigued, you found a good match. If he judges, you dodged a bullet."
                 },
                 {
                     category: "Body Language",
-                    title: "Master Nonverbal Communication",
+                    title: "The Power Posture",
                     icon: "💃",
-                    rationale: "Body language communicates more than words. Open, confident posture signals self-assurance and approachability. Studies show that nonverbal cues account for 55% of first impression impact, making body language a powerful attraction tool.",
-                    stat: "Women with confident body language are approached 78% more often and rated significantly more attractive in initial encounters.",
-                    actions: [
-                        {
-                            title: "Perfect Your Posture",
-                            description: "Imagine a string pulling you up from the crown of your head. Shoulders back, chin parallel to ground. Good posture instantly adds presence and attractiveness."
-                        },
-                        {
-                            title: "Use Expressive Gestures",
-                            description: "Let your hands move naturally when talking. Expressive gestures make you more engaging and memorable. Avoid keeping arms crossed or hands hidden."
-                        },
-                        {
-                            title: "Make Genuine Eye Contact",
-                            description: "Hold eye contact for 3-5 seconds, then look away naturally. It shows confidence without staring. Notice eye color when meeting someone - this creates perfect contact."
-                        }
-                    ]
+                    quote: "Your body language doesn't just reflect confidence—it creates it.",
+                    why: "Standing tall for just 2 minutes increases testosterone by 20% and decreases cortisol by 25%. This isn't superficial—it's biochemistry. Yet most women are socialized to take up less space, literally shrinking their presence and confidence.",
+                    action: "Before any important interaction, find a private space and stand with hands on hips or arms raised in a 'V' for 2 minutes. Your body will produce confidence hormones that make you feel and appear more self-assured."
                 },
                 {
                     category: "Communication",
-                    title: "Develop Magnetic Conversation Skills",
+                    title: "Ask Better Questions",
                     icon: "💬",
-                    rationale: "Great conversationalists make others feel interesting, not inferior. The ability to listen deeply, ask thoughtful questions, and share meaningfully creates powerful connection. People remember how you made them feel, not what you said.",
-                    stat: "Active listeners are rated 69% more attractive and create 3.5x deeper connections in initial conversations.",
-                    actions: [
-                        {
-                            title: "Ask Open-Ended Questions",
-                            description: "Instead of 'Did you have a good day?' ask 'What was the best part of your day?' Open questions invite storytelling and reveal personality."
-                        },
-                        {
-                            title: "Practice the 70/30 Rule",
-                            description: "Listen 70% of the time, talk 30%. People love talking about themselves. Your interest makes you interesting. Follow up on what they share."
-                        },
-                        {
-                            title: "Share Meaningful Stories",
-                            description: "Go beyond surface facts. Instead of job titles, share what drives you. Include vulnerability - the struggle makes the story relatable and memorable."
-                        }
-                    ]
+                    quote: "Interesting people aren't interesting because they talk. They're interesting because they're interested.",
+                    why: "Research shows that people who ask open-ended questions are rated 69% more attractive. Yet most conversations are just parallel monologues. Real questions create real connection—and make you unforgettable.",
+                    action: "Instead of 'How was your day?' try 'What's something that surprised you today?' or 'What are you looking forward to this week?' Open questions unlock real conversations."
                 },
                 {
                     category: "Style",
-                    title: "Develop Your Signature Style",
+                    title: "Dress for Yourself First",
                     icon: "👗",
-                    rationale: "Style is self-expression, not conformity. Dressing in ways that make you feel confident and comfortable signals self-awareness and self-respect. Your style tells a story about who you are before you say a word.",
-                    stat: "Women who dress authentically to their personality are rated 63% more confident and memorable than those following trends blindly.",
-                    actions: [
-                        {
-                            title: "Find Your Color Palette",
-                            description: "Identify 4-5 colors that complement your skin tone and make you feel powerful. Build your wardrobe around these. Consistency creates recognition and presence."
-                        },
-                        {
-                            title: "Invest in Fit, Not Brands",
-                            description: "Well-fitted clothes look expensive regardless of price. Get key pieces tailored. Focus on how clothes make you feel, not what the tag says."
-                        },
-                        {
-                            title: "Create a Signature Element",
-                            description: "A specific style of jewelry, lipstick color, or accessory. Something that becomes 'your thing.' It builds recognition and shows intentionality."
-                        }
-                    ]
+                    quote: "Dress like you're already famous.",
+                    why: "Women who dress authentically (not for trends or male attention) are rated 63% more confident and memorable. Your style is self-expression before it's attraction—and that authentic energy is what makes you magnetic.",
+                    action: "Clean out your closet this weekend. Keep only clothes that make you feel powerful and authentically you. If you wear it out of obligation or insecurity, donate it. Build from your favorites."
                 },
                 {
                     category: "Emotional Intelligence",
-                    title: "Master Emotional Awareness",
+                    title: "Name the Feeling",
                     icon: "🧠",
-                    rationale: "Emotional intelligence - understanding and managing both your emotions and others' - is a superpower in relationships. It allows you to connect deeply, navigate conflicts gracefully, and create emotional safety that makes people feel understood.",
-                    stat: "High emotional intelligence predicts 58% of relationship success and is rated as highly attractive by 92% of men.",
-                    actions: [
-                        {
-                            title: "Name Your Emotions",
-                            description: "When feeling upset, identify specifically: frustrated, disappointed, anxious? Naming emotions reduces their intensity by 50% and increases self-control."
-                        },
-                        {
-                            title: "Practice Empathetic Listening",
-                            description: "When someone shares, reflect back what you hear: 'It sounds like you're feeling overwhelmed.' This validates their experience and builds deep connection."
-                        },
-                        {
-                            title: "Pause Before Responding",
-                            description: "In emotional moments, take 3 deep breaths before replying. This 10-second pause activates thoughtful response instead of reactive emotions."
-                        }
-                    ]
+                    quote: "You can't heal what you won't feel.",
+                    why: "Simply labeling emotions ('I'm anxious about this' vs vague 'I feel weird') reduces their intensity by 50% and activates your rational brain. This emotional fluency predicts 58% of relationship success—yet most people skip this step.",
+                    action: "Set 3 alarms today. When they go off, pause and identify your emotion in one word: anxious, excited, frustrated, content, grateful. That's it. This trains the superpower of emotional awareness."
                 },
                 {
                     category: "Energy",
-                    title: "Radiate Positive Energy",
+                    title: "Protect Your Vibe",
                     icon: "☀️",
-                    rationale: "Energy is contagious. High-vibration energy - positivity, enthusiasm, vitality - makes people want to be around you. Your energy affects how others feel in your presence, and people are drawn to those who make them feel good.",
-                    stat: "Positive energy increases attraction ratings by 72% and makes you 4.1x more likely to be remembered after first meetings.",
-                    actions: [
-                        {
-                            title: "Start Your Day Intentionally",
-                            description: "Create a morning routine: movement, gratitude, setting intentions. How you start your day determines your baseline energy for all interactions."
-                        },
-                        {
-                            title: "Practice Energy Management",
-                            description: "Know what drains you (negative people, too much news) and what fuels you (nature, music, exercise). Protect your energy like your most valuable resource."
-                        },
-                        {
-                            title: "Smile Genuinely and Often",
-                            description: "Real smiles (Duchenne smiles - eyes and mouth) trigger mirror neurons, making others feel happy around you. Practice finding genuine amusement in moments."
-                        }
-                    ]
+                    quote: "Your energy introduces you before you speak.",
+                    why: "Positive energy increases attraction ratings by 72% and makes you 4.1x more memorable. But here's what's surprising: you can't fake high energy with caffeine or performance—it comes from managing what drains you and fueling what energizes you.",
+                    action: "Identify your top 3 energy drains (toxic friend, doom scrolling, overwork) and your top 3 energy sources (nature, music, movement). This week, reduce one drain and increase one source."
                 },
                 {
                     category: "Independence",
-                    title: "Maintain Your Independence",
+                    title: "Keep Your Life Full",
                     icon: "🦋",
-                    rationale: "Independence signals emotional maturity and self-sufficiency - highly attractive qualities. Having your own life, interests, and identity makes you interesting and prevents codependency. You become a whole person inviting someone into your life, not half a person seeking completion.",
-                    stat: "Women who maintain strong independence and personal identity show 81% higher relationship satisfaction and lower anxiety.",
-                    actions: [
-                        {
-                            title: "Nurture Your Friendships",
-                            description: "Keep investing in your friend relationships even when dating. Schedule regular friend time. Your support network is crucial for your wellbeing and attractiveness."
-                        },
-                        {
-                            title: "Pursue Your Own Goals",
-                            description: "Maintain your career ambitions, hobbies, and personal growth goals. Don't abandon your dreams for anyone. Having your own pursuits makes you dynamic."
-                        },
-                        {
-                            title: "Enjoy Solo Time",
-                            description: "Be comfortable alone. Take yourself to dinner, travel solo, enjoy your own company. Self-sufficiency is attractive and builds genuine confidence."
-                        }
-                    ]
+                    quote: "You're not trying to complete someone. You're inviting them into your already full life.",
+                    why: "Women who maintain independence show 81% higher relationship satisfaction. Counterintuitively, being a little 'busy' makes you more attractive—it signals value, prevents codependency, and gives you interesting things to talk about.",
+                    action: "Don't drop your Tuesday yoga or Sunday brunch with friends when you start dating someone. Keep your calendar full with things you love. Make him earn a spot in your life, don't hand it over."
                 },
                 {
                     category: "Playfulness",
-                    title: "Embrace Playful Energy",
+                    title: "Tease, Don't Please",
                     icon: "🎪",
-                    rationale: "Playfulness signals joy, creativity, and the ability to not take everything too seriously - all attractive qualities. It creates positive associations and makes interactions fun and memorable. Laughter releases bonding hormones and reduces stress.",
-                    stat: "Playful behavior increases attraction by 66% and creates 2.8x more memorable interactions than serious-only conversations.",
-                    actions: [
-                        {
-                            title: "Practice Light Teasing",
-                            description: "Gentle, playful teasing (never about insecurities) creates fun tension. Tease about harmless things with a smile. Balance teasing with genuine compliments."
-                        },
-                        {
-                            title: "Don't Fear Silly",
-                            description: "Be willing to be goofy, make funny faces, or dance spontaneously. Taking yourself too seriously creates distance. Playfulness creates connection."
-                        },
-                        {
-                            title: "Find Shared Humor",
-                            description: "Notice what makes both of you laugh and reference it later. Inside jokes create bonding and exclusivity. Shared laughter is relationship glue."
-                        }
-                    ]
+                    quote: "A little playful challenge is more attractive than agreeing with everything he says.",
+                    why: "Playful teasing (about harmless things, never insecurities) increases attraction by 66% and creates fun tension. Most women are taught to be accommodating, making those who playfully push back incredibly memorable and intriguing.",
+                    action: "Next time he says something you can gently tease about, do it with a smile: 'Oh, you're one of those people who...' or 'That's the most [insert city] thing you've ever said.' Light, fun, memorable."
                 },
                 {
                     category: "Mystery",
-                    title: "Balance Openness with Mystery",
+                    title: "Leave Them Wanting More",
                     icon: "🌙",
-                    rationale: "While authenticity matters, maintaining some mystery keeps interest alive. Don't reveal everything immediately - let intrigue build gradually. Mystery activates the brain's reward system, making people want to discover more about you.",
-                    stat: "Gradual disclosure increases long-term attraction by 57% and creates 68% more anticipation in early dating stages.",
-                    actions: [
-                        {
-                            title: "Practice Strategic Sharing",
-                            description: "Share progressively deeper information over time. First interactions: interests and fun stories. Later: values and vulnerabilities. Let trust build naturally."
-                        },
-                        {
-                            title: "Don't Over-Text",
-                            description: "Maintain some space in communication. You don't need to respond instantly or share every moment. A little anticipation builds attraction."
-                        },
-                        {
-                            title: "Keep Your Life Full",
-                            description: "Don't drop everything when someone new appears. Maintain your schedule, interests, and friendships. Being busy (but making time) signals value."
-                        }
-                    ]
+                    quote: "Don't be an open book on page one. Be a story that unfolds.",
+                    why: "Gradual disclosure increases long-term attraction by 57% because it activates the brain's reward system. Sharing everything immediately kills intrigue. Strategic pacing (not deception) keeps interest building.",
+                    action: "When messaging someone new, end conversations when they're going well, not when they die out. Don't always be available instantly. A little anticipation makes the next conversation more exciting."
                 },
                 {
                     category: "Vulnerability",
-                    title: "Embrace Authentic Vulnerability",
+                    title: "Real Over Perfect",
                     icon: "❤️",
-                    rationale: "Vulnerability is courage, not weakness. Sharing genuine thoughts, feelings, and experiences creates deep connection. Dr. Brené Brown's research shows vulnerability is the birthplace of love and belonging. It gives others permission to be real too.",
-                    stat: "Appropriate vulnerability increases perceived trustworthiness by 74% and creates 3.2x deeper emotional connections.",
-                    actions: [
-                        {
-                            title: "Share Your Real Feelings",
-                            description: "When appropriate, express how you actually feel: 'I'm nervous about this presentation' or 'That really moved me.' Emotional honesty creates intimacy."
-                        },
-                        {
-                            title: "Admit Imperfections",
-                            description: "Share your struggles and growth areas. 'I'm working on being less controlling' shows self-awareness and humanity. Perfection creates distance."
-                        },
-                        {
-                            title: "Ask for What You Need",
-                            description: "Don't expect mind-reading. Clearly express your needs: 'I need some alone time to recharge' or 'Could we talk about this?' Asking shows emotional maturity."
-                        }
-                    ]
+                    quote: "Vulnerability isn't oversharing. It's honest sharing.",
+                    why: "Appropriate vulnerability (sharing your real feelings, not trauma-dumping) increases trust by 74% and creates 3.2x deeper connections. Perfection creates distance. Realness creates intimacy. Most people are starved for authentic connection.",
+                    action: "Share one real struggle you're working through: 'I'm trying to be better at setting boundaries' or 'Working on not being so hard on myself.' Vulnerability gives others permission to be real too."
                 },
                 {
                     category: "Presence",
-                    title: "Cultivate Mindful Presence",
+                    title: "Be Where Your Feet Are",
                     icon: "🎯",
-                    rationale: "Being fully present - not distracted, not performing, not in your head - makes others feel valued and seen. Presence combines attention, openness, and genuine engagement. It's rare in our distracted world, making it powerfully attractive.",
-                    stat: "People who demonstrate strong presence are remembered 89% of the time after meetings and rated 76% more engaging.",
-                    actions: [
-                        {
-                            title: "Practice Phone-Free Interactions",
-                            description: "During conversations, phone face-down and silent. Give people your full attention. This rare gift makes them feel truly important."
-                        },
-                        {
-                            title: "Ground Before Social Events",
-                            description: "Take 30 seconds before interactions to feel your feet on the ground and breathe deeply. This centers you in the present moment."
-                        },
-                        {
-                            title: "Listen to Understand, Not Respond",
-                            description: "Stop planning your response while someone's talking. Actually listen. Ask yourself 'What are they really saying?' This creates real connection."
-                        }
-                    ]
+                    quote: "The greatest gift you can give someone is your full attention.",
+                    why: "People with strong presence are remembered 89% of the time versus 37% for distracted people. In our phone-obsessed world, genuine presence is rare—and powerfully magnetic. It makes people feel truly seen.",
+                    action: "On your next date or hangout, commit to phone on silent, screen-down, in your bag. Don't check it once. Be fully present. Watch how differently the interaction feels."
                 },
                 {
                     category: "Boundaries",
-                    title: "Master Healthy Boundaries",
+                    title: "No is a Complete Sentence",
                     icon: "🛡️",
-                    rationale: "Boundaries aren't walls - they're guidelines for how you want to be treated. Strong boundaries show self-respect and teach others how to treat you. They prevent resentment and create healthier, more balanced relationships.",
-                    stat: "Women with clear boundaries report 79% higher relationship satisfaction and 68% lower stress in relationships.",
-                    actions: [
-                        {
-                            title: "Identify Your Non-Negotiables",
-                            description: "Write down your absolute requirements in relationships (respect, honesty, emotional availability). Know these before dating. Don't compromise on core values."
-                        },
-                        {
-                            title: "Practice Saying No",
-                            description: "Start small: decline invitations you don't want. Use simple phrases: 'That doesn't work for me' or 'I'm not available then.' No extensive explanations needed."
-                        },
-                        {
-                            title: "Address Boundary Violations Early",
-                            description: "When someone crosses a boundary, address it immediately and directly: 'I'm not comfortable with that' or 'Please don't do that again.' Early correction prevents patterns."
-                        }
-                    ]
+                    quote: "Boundaries aren't mean. They're how you teach people to treat you.",
+                    why: "Women with clear boundaries report 79% higher relationship satisfaction. Yet women are socialized to be accommodating, making boundary-setting feel rude. It's not—it's self-respect. And it's incredibly attractive.",
+                    action: "Practice saying no to one small thing this week without explaining: 'That doesn't work for me' or 'I'm not available then.' No justification. Notice how empowering it feels."
                 },
                 {
                     category: "Self-Care",
-                    title: "Prioritize Self-Care",
+                    title: "You Can't Pour from Empty",
                     icon: "🌸",
-                    rationale: "Self-care isn't selfish - it's essential. Taking care of your physical, emotional, and mental health makes you more attractive, energized, and capable of healthy relationships. You can't pour from an empty cup.",
-                    stat: "Regular self-care practices increase energy by 64%, reduce stress by 71%, and significantly boost physical attractiveness ratings.",
-                    actions: [
-                        {
-                            title: "Create Non-Negotiable Rituals",
-                            description: "Establish 3 daily self-care practices: morning movement, skincare routine, 10 minutes of reading. Make them as essential as brushing teeth."
-                        },
-                        {
-                            title: "Honor Your Sleep",
-                            description: "Prioritize 7-9 hours of quality sleep. Poor sleep reduces attractiveness by 25% and tanks mood and energy. Your sleep is sacred."
-                        },
-                        {
-                            title: "Schedule Joy Regularly",
-                            description: "Put activities that bring you joy on your calendar: spa days, hobbies, nature time. Treat these appointments as seriously as work meetings."
-                        }
-                    ]
+                    quote: "Self-care isn't selfish. It's how you stay kind instead of resentful.",
+                    why: "Regular self-care increases energy by 64%, reduces stress by 71%, and boosts attractiveness ratings. Yet women are taught to prioritize everyone else first. Self-neglect doesn't make you noble—it makes you depleted.",
+                    action: "Schedule 3 non-negotiable weekly self-care acts: morning walk, bath, reading 20 pages, yoga. Treat these like doctor appointments—they don't get canceled for someone else's convenience."
                 },
                 {
                     category: "Passion",
-                    title: "Live With Passion and Purpose",
+                    title: "Have Something You're Obsessed With",
                     icon: "🔥",
-                    rationale: "Having passions and purpose makes you magnetic. When you're excited about your life, work, or hobbies, that energy is contagious. People are attracted to those who are going somewhere and loving the journey.",
-                    stat: "Women with clear passions and life purpose are rated 77% more attractive and show 52% higher life satisfaction.",
-                    actions: [
-                        {
-                            title: "Identify Your Core Passions",
-                            description: "What makes you lose track of time? What would you do even if unpaid? Identify 2-3 true passions and actively pursue them weekly."
-                        },
-                        {
-                            title: "Set Inspiring Goals",
-                            description: "Create goals in different life areas: career, personal growth, relationships, health. Having direction makes you dynamic and interesting."
-                        },
-                        {
-                            title: "Share Your Enthusiasm",
-                            description: "Talk about what excites you without apologizing. Let people see your passion and drive. Enthusiasm is attractive and inspiring to others."
-                        }
-                    ]
+                    quote: "Passion is the most attractive thing you can wear.",
+                    why: "Women with clear passions are rated 77% more attractive because enthusiasm is contagious and signals depth. Having something you're genuinely excited about makes you infinitely more interesting than someone waiting for a relationship to give them purpose.",
+                    action: "Identify one thing you're genuinely excited about (not a guy). Commit 3 hours this week to it: a hobby, learning something, a project. Let yourself geek out about it. Share that energy."
+                },
+                {
+                    category: "Voice",
+                    title: "Speak With Conviction",
+                    icon: "🎤",
+                    quote: "Upspeak makes statements sound like questions. End sentences with authority.",
+                    why: "Studies show that women who end sentences with rising intonation (upspeak) are perceived as less confident and authoritative. Speaking declaratively—ending sentences with a downward tone—signals confidence and makes people take you seriously.",
+                    action: "Record yourself speaking for 30 seconds. Notice if your sentences rise at the end like questions. Practice making declarative statements with downward intonation. 'I think we should do this.' Not 'I think we should do this?'"
+                },
+                {
+                    category: "Listening",
+                    title: "The Reflection Technique",
+                    icon: "🔊",
+                    quote: "People feel heard when you reflect back what they say.",
+                    why: "Reflecting someone's feelings back to them ('It sounds like you're frustrated about that') is a therapeutic technique that creates deep connection. Most people jump to advice or their own story. Reflection makes people feel truly understood.",
+                    action: "When someone shares something emotional, pause and reflect it back: 'That sounds really challenging' or 'You seem excited about that.' Then stay quiet. Let them elaborate. This creates powerful connection."
+                },
+                {
+                    category: "Smile",
+                    title: "The Duchenne Smile",
+                    icon: "😊",
+                    quote: "A real smile engages your eyes, not just your mouth.",
+                    why: "Fake smiles (just mouth) are instantly detectable and create distance. Real smiles (Duchenne smiles—eyes crinkle, whole face lights up) trigger mirror neurons and make others feel genuinely happy. People can tell the difference subconsciously.",
+                    action: "Practice genuine smiling by thinking of something that actually makes you happy before smiling. Notice how your whole face changes. Fake smiles use 2 muscles. Real smiles use 12."
+                },
+                {
+                    category: "Texting",
+                    title: "Match Energy, Not Timing",
+                    icon: "📱",
+                    quote: "Don't play games with response times. Match enthusiasm levels instead.",
+                    why: "Waiting 3 hours to text back because 'rules' is game-playing and creates anxiety. What matters is energy—if he sends thoughtful messages, send thoughtful ones back. If he sends one-word replies, mirror that. Authenticity beats strategy.",
+                    action: "Stop timing your responses. Instead, match his effort level. Enthusiastic paragraph? Send one back. One-word answer? Mirror it. This naturally filters for compatible communication styles without games."
+                },
+                {
+                    category: "Standards",
+                    title: "Know Your Non-Negotiables",
+                    icon: "⚖️",
+                    quote: "If you stand for nothing, you'll fall for anything.",
+                    why: "Women without clear standards often end up in relationships that don't serve them. Having 3-5 absolute deal-breakers (dishonesty, disrespect, lack of ambition—whatever matters to you) ensures you don't compromise your values for company.",
+                    action: "Write down 3 relationship non-negotiables today. These are your lines in the sand. Share them if needed: 'I don't date people who [boundary].' Don't apologize for having standards."
+                },
+                {
+                    category: "Compliments",
+                    title: "Receive Gracefully",
+                    icon: "💐",
+                    quote: "Say 'thank you,' not 'oh, this old thing?'",
+                    why: "Deflecting compliments ('Really? I look terrible') signals low self-worth and makes the giver feel dismissed. Receiving gracefully ('Thank you, I appreciate that') shows confidence and validates their perspective. It's a simple shift with big impact.",
+                    action: "Next compliment you receive, practice: 'Thank you, that's kind of you to say' or just 'Thank you' with a smile. No deflecting, no minimizing. Just receive it."
+                },
+                {
+                    category: "Challenge",
+                    title: "Don't Be Too Available",
+                    icon: "🗓️",
+                    quote: "Having a full life isn't playing hard to get—it's being worth pursuing.",
+                    why: "Dropping everything when he texts sends a message: 'My life isn't that interesting.' Maintaining your schedule shows you have a life you value. This isn't manipulation—it's genuinely having priorities beyond dating.",
+                    action: "This week, if he suggests plans when you're busy, say 'I'd love to, but I have plans. How about [alternative day]?' Don't cancel your life for someone you just met."
+                },
+                {
+                    category: "Eye Contact",
+                    title: "Hold His Gaze",
+                    icon: "👁️",
+                    quote: "Eye contact creates intimacy. Looking away creates distance.",
+                    why: "Holding eye contact for 3-5 seconds creates connection and signals confidence. Most people look away after 1-2 seconds out of shyness. That extra moment of sustained contact creates a spark and shows you're comfortable with intimacy.",
+                    action: "Practice holding eye contact slightly longer than feels comfortable. When he's speaking, maintain eye contact for 4-5 seconds before looking away naturally. Notice how it changes the dynamic."
+                },
+                {
+                    category: "Silence",
+                    title: "Embrace Comfortable Silence",
+                    icon: "🤫",
+                    quote: "Silence is only awkward if you make it awkward.",
+                    why: "Filling every silence with chatter signals anxiety. Being comfortable with pauses shows confidence and creates space for depth. Some of the most intimate moments happen in silence. Comfortable silence is a sign of connection, not absence of it.",
+                    action: "Next conversation, when there's a natural pause, don't rush to fill it. Count to 5 in your head. Breathe. Smile. Be comfortable with the silence. See what emerges."
+                },
+                {
+                    category: "Flirting",
+                    title: "Touch Lightly",
+                    icon: "✨",
+                    quote: "Subtle touch creates electricity. No touch creates the friend zone.",
+                    why: "Light, casual touch (arm during laughter, shoulder when making a point) releases oxytocin and signals romantic interest versus platonic. Most women wait for men to initiate all touch, but subtle touches show you're interested and comfortable.",
+                    action: "During conversation, try one light touch: brief hand on his arm when laughing, or touching his shoulder to emphasize a point. Keep it brief and natural. Gauge his response."
+                },
+                {
+                    category: "Questions",
+                    title: "Go Deeper Than Small Talk",
+                    icon: "❓",
+                    quote: "Ask about dreams, not just details.",
+                    why: "'What do you do?' gets facts. 'What made you choose that path?' gets the story. 'What would you do if money wasn't a factor?' gets dreams. Depth creates connection. Surface questions create surface relationships.",
+                    action: "Skip the resume questions. Instead ask: 'What are you working toward right now?' or 'What's something you believed as a kid that turned out to be wrong?' Go deeper."
+                },
+                {
+                    category: "Laughter",
+                    title: "Laugh Genuinely",
+                    icon: "😄",
+                    quote: "Real laughter is contagious. Fake laughs are obvious.",
+                    why: "Forced giggling at unfunny jokes signals insecurity and people-pleasing. Genuine laughter at things you actually find funny signals authenticity and confidence. Men find authentic reactions far more attractive than performed ones.",
+                    action: "Only laugh when something genuinely amuses you. If his joke isn't funny, a polite smile is enough. Your genuine reactions build trust. Your fake ones build nothing."
+                },
+                {
+                    category: "Initiative",
+                    title: "Suggest Plans Sometimes",
+                    icon: "💡",
+                    quote: "Interest is a two-way street. Show you're interested too.",
+                    why: "Always waiting for him to initiate plans creates an imbalanced dynamic. Suggesting activities shows you're genuinely interested and takes pressure off him. It also ensures you do things you actually enjoy.",
+                    action: "Next time you want to see him, suggest something specific: 'I heard about this great [coffee shop/exhibit/trail]. Want to check it out this weekend?' Show interest, not just availability."
+                },
+                {
+                    category: "Patience",
+                    title: "Don't Rush the Labels",
+                    icon: "⏳",
+                    quote: "Relationships are like bread. They need time to rise.",
+                    why: "Pushing for commitment too early often backfires—it signals insecurity or desperation. Letting things develop naturally, enjoying the process, and building genuine connection before defining it creates stronger foundations and reduces pressure.",
+                    action: "For the first month, focus entirely on enjoying time together and getting to know each other. Don't bring up 'what are we?' Let connection build naturally. Trust the process."
+                },
+                {
+                    category: "Confidence",
+                    title: "Own Your Accomplishments",
+                    icon: "🏆",
+                    quote: "Don't shrink your success to make others comfortable.",
+                    why: "Women are socialized to downplay achievements to seem humble or non-threatening. But minimizing your success signals low self-worth. Owning your wins with grace ('Thank you, I worked really hard on that') is attractive and authentic.",
+                    action: "Next time someone compliments an achievement, don't deflect. Say 'Thank you, I'm proud of that' or 'Thanks, it was challenging but worth it.' Own what you've earned."
+                },
+                {
+                    category: "Disagreement",
+                    title: "Have Your Own Opinions",
+                    icon: "💭",
+                    quote: "Agreeing with everything doesn't make you agreeable—it makes you forgettable.",
+                    why: "Constantly agreeing to be liked signals either dishonesty or lack of substance. Having your own perspective and respectfully disagreeing when appropriate shows depth, confidence, and authenticity. Intellectual sparring can be attractive.",
+                    action: "Next time you genuinely disagree, express it: 'Interesting perspective. I actually see it differently because...' State your view with confidence. Respectful disagreement is attractive."
+                },
+                {
+                    category: "Past",
+                    title: "Don't Overshare Too Soon",
+                    icon: "📜",
+                    quote: "Your past relationships aren't first date material.",
+                    why: "Talking about exes early signals you're not over them or creates negative associations. Save deep past relationship discussions for when trust is established. Early dates should be about who you are now, not who hurt you before.",
+                    action: "If he asks about past relationships in the first few dates, keep it brief: 'I've had some relationships, but I'm focused on the present now.' Change subject to current interests and future."
+                },
+                {
+                    category: "Gratitude",
+                    title: "Appreciate Small Gestures",
+                    icon: "🙏",
+                    quote: "What you appreciate, appreciates.",
+                    why: "Expressing genuine gratitude for thoughtful actions (remembering something you said, planning a date, small considerate gestures) reinforces positive behavior. What you acknowledge increases. What you ignore decreases.",
+                    action: "When he does something thoughtful, acknowledge it specifically: 'I really appreciate that you remembered I love [thing]' or 'Thank you for planning this.' Specific appreciation is powerful."
+                },
+                {
+                    category: "Independence",
+                    title: "Maintain Your Friendships",
+                    icon: "👯",
+                    quote: "Your friends were there before him. Keep them close.",
+                    why: "Women who abandon friendships when dating lose their support system and often lose themselves. Maintaining friendships keeps you grounded, happy, and interesting. Plus, healthy independence is attractive—codependence isn't.",
+                    action: "Schedule at least one friend hangout per week, even when dating someone. Keep your Tuesday coffee dates, your girls' nights. Your friendships are investments, not optional."
+                },
+                {
+                    category: "Fitness",
+                    title: "Move Your Body",
+                    icon: "🏃‍♀️",
+                    quote: "Exercise is the closest thing to a magic pill for confidence and mood.",
+                    why: "Regular movement increases endorphins, improves body image, boosts energy, and enhances confidence. You don't need to be an athlete—just consistent. The confidence from honoring commitments to yourself radiates outward.",
+                    action: "Commit to 30 minutes of movement 3x per week. Walk, dance, yoga, gym—whatever you enjoy. Track it. In 30 days, notice how differently you feel and carry yourself."
+                },
+                {
+                    category: "Curiosity",
+                    title: "Stay Intellectually Curious",
+                    icon: "🔍",
+                    quote: "Learning keeps you interesting. Stagnation makes you boring.",
+                    why: "People who are learning and growing have more to talk about and exude vitality. Reading, podcasts, courses, new experiences—intellectual curiosity makes you dynamic and gives you fresh perspectives to share.",
+                    action: "Start one new learning habit this week: read 20 pages daily, listen to one educational podcast, take an online course. Grow your mind. It shows."
+                },
+                {
+                    category: "Peace",
+                    title: "Choose Peace Over Drama",
+                    icon: "🕊️",
+                    quote: "Creating drama to test interest is exhausting for everyone.",
+                    why: "Games, jealousy plays, or manufactured drama might create short-term attention, but they repel quality partners. Mature men are attracted to women who bring peace, not chaos. Drama is exhausting, not attractive.",
+                    action: "When tempted to create drama or play games to 'test' him, pause. Ask yourself: 'Is this mature behavior or anxiety-driven?' Choose direct communication over manipulation every time."
+                },
+                {
+                    category: "Support",
+                    title: "Celebrate His Wins",
+                    icon: "🎉",
+                    quote: "Your partner's success isn't your competition—it's your celebration.",
+                    why: "Secure women celebrate their partner's achievements. Insecure women feel threatened by them. Being genuinely happy for his success shows confidence and creates a supportive dynamic where both people thrive.",
+                    action: "When he shares good news, respond with genuine enthusiasm: 'That's amazing! I'm so proud of you!' Celebrate his wins as if they're yours too. Partnership means mutual support."
+                },
+                {
+                    category: "Intuition",
+                    title: "Trust Your Gut",
+                    icon: "🎯",
+                    quote: "If it feels off, it probably is. Your intuition is data.",
+                    why: "Women's intuition isn't mystical—it's your subconscious processing micro-signals faster than your conscious mind. If something feels wrong (even if you can't explain why), trust that. Your gut has kept humans alive for millennia.",
+                    action: "When something feels off about a person or situation, don't rationalize it away. Journal about it: 'What specifically triggered this feeling?' Your intuition is valid. Honor it."
                 }
             ]
         };
 
         function selectGender(gender) {
             currentGender = gender;
-            selectedTips = getRandomTips(tipsDatabase[gender], 5);
-            currentTipIndex = 0;
             
+            // Hide gender screen, show briefing screen
             document.getElementById('genderScreen').style.display = 'none';
-            document.getElementById('tipsScreen').classList.add('active');
+            document.getElementById('briefingScreen').classList.add('active');
             
-            renderTips();
-            renderDots();
+            // Start countdown
+            startCountdown();
+        }
+
+        function startCountdown() {
+            timeLeft = 8;
+            updateTimerDisplay();
+            
+            // Reset animation
+            const timerProgress = document.getElementById('timerProgress');
+            timerProgress.style.animation = 'none';
+            setTimeout(() => {
+                timerProgress.style.animation = 'countdown 8s linear forwards';
+            }, 10);
+            
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    showTipsScreen();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('timerNumber').textContent = timeLeft;
+        }
+
+        function skipTimer() {
+            clearInterval(countdownInterval);
+            showTipsScreen();
+        }
+
+        function showTipsScreen() {
+            loadTwoTips();
+            document.getElementById('briefingScreen').classList.remove('active');
+            document.getElementById('tipsScreen').classList.add('active');
+        }
+
+        function loadTwoTips() {
+            selectedTips = getRandomTips(tipsDatabase[currentGender], 2);
+            selectedTipIndex = null;
+            currentCardIndex = 0;
+            renderCarousel();
             setupSwipeHandlers();
         }
 
@@ -1109,58 +1540,49 @@
             return shuffled.slice(0, count);
         }
 
-        function renderTips() {
-            const container = document.getElementById('cardsContainer');
-            container.innerHTML = '';
+        function renderCarousel() {
+            const track = document.getElementById('carouselTrack');
+            track.innerHTML = '';
             
             selectedTips.forEach((tip, index) => {
                 const card = document.createElement('div');
                 card.className = 'tip-card';
-                if (index === currentTipIndex) {
-                    card.classList.add('active');
-                }
                 
                 card.innerHTML = `
                     <div class="tip-illustration">${tip.icon}</div>
                     <div class="tip-category">${tip.category}</div>
                     <h2 class="tip-title">${tip.title}</h2>
-                    <p class="tip-rationale">${tip.rationale}</p>
-                    <div class="tip-stat">${tip.stat}</div>
-                    <button class="commit-btn" onclick="showActions(${index})">Take Action →</button>
+                    <div class="tip-quote">"${tip.quote}"</div>
+                    <p class="tip-why">${tip.why}</p>
+                    <div class="tip-action-header">What to do:</div>
+                    <div class="tip-action">${tip.action}</div>
+                    <div class="select-overlay">
+                        <div class="select-checkmark">✓</div>
+                    </div>
                 `;
                 
-                container.appendChild(card);
+                track.appendChild(card);
             });
             
-            updateCounter();
-        }
-
-        function renderDots() {
-            const dotsContainer = document.getElementById('navigationDots');
-            dotsContainer.innerHTML = '';
-            
-            for (let i = 0; i < selectedTips.length; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                if (i === currentTipIndex) {
-                    dot.classList.add('active');
-                }
-                dot.onclick = () => goToTip(i);
-                dotsContainer.appendChild(dot);
-            }
+            updateCarouselPosition();
+            updateCardIndicator();
+            updateSelectButton();
         }
 
         function setupSwipeHandlers() {
-            const container = document.getElementById('cardsContainer');
+            const track = document.getElementById('carouselTrack');
             
-            container.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-            
-            container.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            });
+            track.addEventListener('touchstart', handleTouchStart, { passive: true });
+            track.addEventListener('touchend', handleTouchEnd, { passive: true });
+        }
+
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+        }
+
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
         }
 
         function handleSwipe() {
@@ -1168,97 +1590,160 @@
             const diff = touchStartX - touchEndX;
             
             if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0 && currentTipIndex < selectedTips.length - 1) {
-                    nextTip();
-                } else if (diff < 0 && currentTipIndex > 0) {
-                    prevTip();
+                if (diff > 0 && currentCardIndex < selectedTips.length - 1) {
+                    // Swipe left - go to next card
+                    currentCardIndex++;
+                } else if (diff < 0 && currentCardIndex > 0) {
+                    // Swipe right - go to previous card
+                    currentCardIndex--;
                 }
+                
+                updateCarouselPosition();
+                updateCardIndicator();
+                updateSelectButton();
             }
         }
 
-        function nextTip() {
-            if (currentTipIndex < selectedTips.length - 1) {
-                currentTipIndex++;
-                updateTipDisplay();
-            }
+        function updateCarouselPosition() {
+            const track = document.getElementById('carouselTrack');
+            const offset = -currentCardIndex * 100;
+            track.style.transform = `translateX(${offset}%)`;
         }
 
-        function prevTip() {
-            if (currentTipIndex > 0) {
-                currentTipIndex--;
-                updateTipDisplay();
-            }
-        }
-
-        function goToTip(index) {
-            currentTipIndex = index;
-            updateTipDisplay();
-        }
-
-        function updateTipDisplay() {
-            const cards = document.querySelectorAll('.tip-card');
-            cards.forEach((card, index) => {
-                card.className = 'tip-card';
-                if (index === currentTipIndex) {
-                    card.classList.add('active');
-                } else if (index < currentTipIndex) {
-                    card.classList.add('prev');
+        function updateCardIndicator() {
+            const dots = document.querySelectorAll('.card-dot');
+            dots.forEach((dot, index) => {
+                if (index === currentCardIndex) {
+                    dot.classList.add('active');
                 } else {
-                    card.classList.add('next');
+                    dot.classList.remove('active');
                 }
             });
-            
-            updateCounter();
-            renderDots();
         }
 
-        function updateCounter() {
-            document.getElementById('tipCounter').textContent = `${currentTipIndex + 1} / ${selectedTips.length}`;
+        function updateSelectButton() {
+            // Button always shows "Commit to This Tip"
+            const selectBtn = document.getElementById('selectBtn');
+            selectBtn.textContent = 'Commit to This Tip';
         }
 
-        function showActions(tipIndex) {
-            const tip = selectedTips[tipIndex];
+        function selectCurrentTip() {
+            selectedTipIndex = currentCardIndex;
             
-            document.getElementById('tipsScreen').classList.remove('active');
-            document.getElementById('actionsScreen').classList.add('active');
+            // Show exciting commitment animation
+            const animation = document.getElementById('commitmentAnimation');
+            animation.classList.add('active');
             
-            document.getElementById('actionsTitle').textContent = tip.title;
+            // Create particle burst effect
+            createParticleBurst();
             
-            const actionsContainer = document.getElementById('actionsContainer');
-            actionsContainer.innerHTML = '';
-            
-            tip.actions.forEach((action, index) => {
-                const actionCard = document.createElement('div');
-                actionCard.className = 'action-card';
-                actionCard.innerHTML = `
-                    <div class="action-number">${index + 1}</div>
-                    <div class="action-title">${action.title}</div>
-                    <div class="action-description">${action.description}</div>
-                `;
-                actionsContainer.appendChild(actionCard);
-            });
+            // After animation completes, show commitment screen
+            setTimeout(() => {
+                animation.classList.remove('active');
+                commitToTip();
+            }, 1500);
         }
 
-        function backToTips() {
-            document.getElementById('actionsScreen').classList.remove('active');
-            document.getElementById('tipsScreen').classList.add('active');
+        function createParticleBurst() {
+            const animation = document.getElementById('commitmentAnimation');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particles';
+                
+                // Random direction for each particle
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const distance = 200;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                animation.appendChild(particle);
+                
+                // Remove particle after animation
+                setTimeout(() => {
+                    particle.remove();
+                }, 1500);
+            }
+        }
+
+        function refreshTips() {
+            loadTwoTips();
+            
+            // Add a subtle animation
+            const track = document.getElementById('carouselTrack');
+            track.style.opacity = '0';
+            track.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                track.style.opacity = '1';
+            }, 100);
+        }
+
+        function commitToTip() {
+            if (selectedTipIndex === null) return;
+            
+            const selectedTip = selectedTips[selectedTipIndex];
+            
+            // Show commitment confirmation
+            const track = document.getElementById('carouselTrack');
+            track.innerHTML = `
+                <div class="tip-card">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                        <img src="data:image/png;base64,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" alt="Pherom Logo" style="width: 200px; height: auto; margin-bottom: 24px; mix-blend-mode: screen;">
+                        <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 16px; color: #ffffff;">You've Committed!</h2>
+                        <div style="background: rgba(99, 102, 241, 0.2); padding: 20px; border-radius: 16px; margin-bottom: 24px; border-left: 4px solid #6366f1; width: 100%;">
+                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #a5b4fc;">${selectedTip.title}</div>
+                            <div style="font-size: 14px; color: #d1d5db; line-height: 1.6;">${selectedTip.action}</div>
+                        </div>
+                        <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 32px;">
+                            This week, focus on this one action. Small consistent steps create big transformations. 
+                            You've got this! 💪
+                        </p>
+                        <button onclick="tryAgain()" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border: none; color: #ffffff; padding: 16px 32px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; width: 100%; max-width: 300px;">
+                            Get New Tips
+                        </button>
+                        <button onclick="backToGender()" style="background: #1a1a1a; border: 2px solid #6366f1; color: #6366f1; padding: 16px 32px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; max-width: 300px;">
+                            Start Over
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Hide indicators and select button
+            document.querySelector('.choice-indicator').style.display = 'none';
+            document.querySelector('.card-indicator').style.display = 'none';
+            document.querySelector('.swipe-indicators').style.display = 'none';
+        }
+
+        function tryAgain() {
+            document.querySelector('.choice-indicator').style.display = 'block';
+            document.querySelector('.card-indicator').style.display = 'flex';
+            document.querySelector('.swipe-indicators').style.display = 'flex';
+            loadTwoTips();
         }
 
         function backToGender() {
-            document.getElementById('tipsScreen').classList.remove('active');
-            document.getElementById('genderScreen').style.display = 'flex';
-            currentGender = '';
-            currentTipIndex = 0;
-            selectedTips = [];
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (document.getElementById('tipsScreen').classList.contains('active')) {
-                if (e.key === 'ArrowRight') nextTip();
-                if (e.key === 'ArrowLeft') prevTip();
+            // Clear any running timer
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
             }
-        });
+            
+            document.getElementById('tipsScreen').classList.remove('active');
+            document.getElementById('briefingScreen').classList.remove('active');
+            document.getElementById('genderScreen').style.display = 'flex';
+            document.querySelector('.choice-indicator').style.display = 'block';
+            document.querySelector('.card-indicator').style.display = 'flex';
+            document.querySelector('.swipe-indicators').style.display = 'flex';
+            
+            currentGender = '';
+            selectedTipIndex = null;
+            selectedTips = [];
+            currentCardIndex = 0;
+            timeLeft = 8;
+        }
     </script>
 </body>
 </html>

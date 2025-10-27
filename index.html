@@ -493,7 +493,7 @@
 
         .swipe-indicators {
             position: absolute;
-            bottom: 120px;
+            top: 20px;
             left: 0;
             right: 0;
             display: flex;
@@ -1598,18 +1598,25 @@
         }
 
         function selectCurrentTip() {
+            console.log('Selecting tip at index:', currentCardIndex);
+            console.log('Available tips:', selectedTips.length);
+            
             selectedTipIndex = currentCardIndex;
             
             // Show exciting commitment animation
             const animation = document.getElementById('commitmentAnimation');
-            animation.classList.add('active');
+            if (animation) {
+                animation.classList.add('active');
+            }
             
             // Create particle burst effect
             createParticleBurst();
             
             // After animation completes, show commitment screen
             setTimeout(() => {
-                animation.classList.remove('active');
+                if (animation) {
+                    animation.classList.remove('active');
+                }
                 commitToTip();
             }, 1500);
         }
@@ -1653,20 +1660,30 @@
         }
 
         function commitToTip() {
-            if (selectedTipIndex === null) return;
+            if (selectedTipIndex === null || selectedTipIndex === undefined) {
+                console.log('No tip selected');
+                return;
+            }
             
             const selectedTip = selectedTips[selectedTipIndex];
+            if (!selectedTip) {
+                console.log('Selected tip not found at index:', selectedTipIndex);
+                return;
+            }
             
             // Show commitment confirmation
             const track = document.getElementById('carouselTrack');
+            const tipTitle = selectedTip.title || 'Your Selected Tip';
+            const tipAction = selectedTip.action || 'Focus on the action you chose this week.';
+            
             track.innerHTML = `
                 <div class="tip-card">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 20px;">
                         <div style="font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 24px; letter-spacing: -1px;">Pherom</div>
                         <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 16px; color: #ffffff;">You've Committed!</h2>
                         <div style="background: rgba(99, 102, 241, 0.2); padding: 20px; border-radius: 16px; margin-bottom: 24px; border-left: 4px solid #6366f1; width: 100%;">
-                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #a5b4fc;">${selectedTip.title}</div>
-                            <div style="font-size: 14px; color: #d1d5db; line-height: 1.6;">${selectedTip.action}</div>
+                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #a5b4fc;">${tipTitle}</div>
+                            <div style="font-size: 14px; color: #d1d5db; line-height: 1.6;">${tipAction}</div>
                         </div>
                         <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 32px;">
                             This week, focus on this one action. Small consistent steps create big transformations. 
@@ -1683,15 +1700,24 @@
             `;
             
             // Hide indicators and select button
-            document.querySelector('.choice-indicator').style.display = 'none';
-            document.querySelector('.card-indicator').style.display = 'none';
-            document.querySelector('.swipe-indicators').style.display = 'none';
+            const choiceIndicator = document.querySelector('.choice-indicator');
+            const cardIndicator = document.querySelector('.card-indicator');
+            const swipeIndicators = document.querySelector('.swipe-indicators');
+            
+            if (choiceIndicator) choiceIndicator.style.display = 'none';
+            if (cardIndicator) cardIndicator.style.display = 'none';
+            if (swipeIndicators) swipeIndicators.style.display = 'none';
         }
 
         function tryAgain() {
-            document.querySelector('.choice-indicator').style.display = 'block';
-            document.querySelector('.card-indicator').style.display = 'flex';
-            document.querySelector('.swipe-indicators').style.display = 'flex';
+            const choiceIndicator = document.querySelector('.choice-indicator');
+            const cardIndicator = document.querySelector('.card-indicator');
+            const swipeIndicators = document.querySelector('.swipe-indicators');
+            
+            if (choiceIndicator) choiceIndicator.style.display = 'block';
+            if (cardIndicator) cardIndicator.style.display = 'flex';
+            if (swipeIndicators) swipeIndicators.style.display = 'flex';
+            
             loadTwoTips();
         }
 
